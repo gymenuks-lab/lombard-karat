@@ -11,7 +11,7 @@ const items = [
   { icon: BadgeCheck, title: 'Сертифіковані вироби', text: 'Проба та документи' },
   { icon: CreditCard, title: 'Безпечна оплата', text: 'Онлайн або при отриманні' },
   { icon: RotateCcw, title: 'Обмін та повернення', text: 'Протягом 14 днів' },
-  { icon: Headphones, title: 'Підтримка щодня', text: 'Консультація 09:00–20:00' },
+  { icon: Headphones, title: 'Підтримка щодня', text: 'Консультація 08:00–19:00' },
 ]
 
 export function TrustBar() {

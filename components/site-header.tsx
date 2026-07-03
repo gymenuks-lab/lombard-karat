@@ -47,7 +47,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-3">
           <a
-            href="tel:+380441234567"
+            href="tel:+380938205448"
             className="hidden items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 sm:flex"
           >
             <Phone className="size-4" />
@@ -78,7 +78,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <a
-              href="tel:+380441234567"
+              href="tel:+380938205448"
               className="mt-3 mb-2 flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground"
             >
               <Phone className="size-4" />
