@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Gem, Menu, Phone, X } from "lucide-react"
+import Image from "next/image"
+import { Menu, Phone, X } from "lucide-react"
 
 const navLinks = [
   { label: "Каталог", href: "/catalog" },
@@ -18,11 +19,16 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="flex size-9 items-center justify-center rounded-md bg-secondary text-primary">
-            <Gem className="size-5" />
-          </span>
-          <span className="flex flex-col leading-none">
+        <Link href="/" className="flex items-center" aria-label="5 Карат — головна">
+          <Image
+            src="/images/logo-5karat.png"
+            alt="Ломбард 5 Карат — золото, срібло, довіра"
+            width={112}
+            height={112}
+            priority
+            className="h-12 w-12 rounded-md object-cover sm:h-14 sm:w-14"
+          />
+          <span className="ml-3 flex flex-col leading-none sm:hidden lg:flex">
             <span className="font-serif text-lg font-semibold tracking-tight">5 Карат</span>
             <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Ювелірний дім</span>
           </span>
