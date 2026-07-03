@@ -2,7 +2,6 @@ import { SiteHeader } from '@/components/site-header'
 import { Hero } from '@/components/hero'
 import { TrustBar } from '@/components/trust-bar'
 import { Services } from '@/components/services'
-import { EvaluationForm } from '@/components/evaluation-form'
 import { FeaturedProducts } from '@/components/featured-products'
 import { BrandPositioning } from '@/components/brand-positioning'
 import { Faq } from '@/components/faq'
@@ -17,7 +16,6 @@ export default function Page() {
         <Hero />
         <TrustBar />
         <Services />
-        <EvaluationForm />
         <FeaturedProducts />
         <BrandPositioning />
         <Faq />

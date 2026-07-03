@@ -73,7 +73,7 @@ export function AdminDashboard({
         <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
           <StatCard label="Усього товарів" value={stats.total} />
           <StatCard label="В наявності" value={stats.available} />
-          <StatCard label="Ломбард" value={stats.lombard} />
+          <StatCard label="Вживані" value={stats.lombard} />
           <StatCard label="Від виробника" value={stats.manufacturer} />
         </div>
 

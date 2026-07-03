@@ -13,7 +13,7 @@ export async function FeaturedProducts() {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Каталог 5 Карат</p>
           <h2 className="mt-3 font-serif text-3xl font-semibold text-balance sm:text-4xl">Прикраси в наявності</h2>
           <p className="mt-4 text-muted-foreground text-pretty">
-            Ювелірні вироби з ломбарду та нові прикраси від виробника. Асортимент оновлюється щодня з нашого Telegram-каналу.
+            Нові прикраси від виробника та перевірені вживані вироби. Асортимент оновлюється щодня з нашого Telegram-каналу.
           </p>
         </div>
 

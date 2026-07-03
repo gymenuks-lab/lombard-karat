@@ -7,9 +7,8 @@ import { Menu, Phone, X } from "lucide-react"
 
 const navLinks = [
   { label: "Каталог", href: "/catalog" },
-  { label: "Ломбардна вітрина", href: "/catalog?category=lombard" },
+  { label: "Вживані", href: "/catalog?category=lombard" },
   { label: "Від виробника", href: "/catalog?category=manufacturer" },
-  { label: "Оцінка", href: "/#evaluation" },
   { label: "Контакти", href: "/#contacts" },
 ]
 
@@ -22,7 +21,7 @@ export function SiteHeader() {
         <Link href="/" className="flex items-center" aria-label="5 Карат — головна">
           <Image
             src="/images/logo-5karat.png"
-            alt="Ломбард 5 Карат — золото, срібло, довіра"
+            alt="5 Карат — ювелірний магазин золота та срібла"
             width={112}
             height={112}
             priority

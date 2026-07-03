@@ -36,7 +36,7 @@ export interface Order {
 }
 
 export const CATEGORY_LABELS: Record<ProductCategory, string> = {
-  lombard: "Ломбардна вітрина",
+  lombard: "Вживані вироби",
   manufacturer: "Від виробника",
 }
 
