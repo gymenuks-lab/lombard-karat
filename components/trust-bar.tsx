@@ -1,21 +1,17 @@
 import {
+  Truck,
   BadgeCheck,
-  Lock,
-  Timer,
-  CircleDollarSign,
-  ShieldCheck,
+  CreditCard,
+  RotateCcw,
+  Headphones,
 } from 'lucide-react'
 
 const items = [
-  { icon: BadgeCheck, title: 'Офіційна робота', text: 'Ліцензована діяльність' },
-  { icon: Lock, title: 'Конфіденційність', text: 'Ваші дані під захистом' },
-  { icon: Timer, title: 'Гроші за 10–15 хв', text: 'Швидка видача готівки' },
-  {
-    icon: CircleDollarSign,
-    title: 'Без прихованих комісій',
-    text: 'Прозорі умови',
-  },
-  { icon: ShieldCheck, title: 'Безпека зберігання', text: 'Сейфи та страхування' },
+  { icon: Truck, title: 'Доставка по Україні', text: 'Нова Пошта та кур’єр' },
+  { icon: BadgeCheck, title: 'Сертифіковані вироби', text: 'Проба та документи' },
+  { icon: CreditCard, title: 'Безпечна оплата', text: 'Онлайн або при отриманні' },
+  { icon: RotateCcw, title: 'Обмін та повернення', text: 'Протягом 14 днів' },
+  { icon: Headphones, title: 'Підтримка щодня', text: 'Консультація 08:00–19:00' },
 ]
 
 export function TrustBar() {
