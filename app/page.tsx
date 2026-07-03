@@ -3,7 +3,7 @@ import { Hero } from '@/components/hero'
 import { TrustBar } from '@/components/trust-bar'
 import { Services } from '@/components/services'
 import { EvaluationForm } from '@/components/evaluation-form'
-import { JewelryStore } from '@/components/jewelry-store'
+import { FeaturedProducts } from '@/components/featured-products'
 import { BrandPositioning } from '@/components/brand-positioning'
 import { Faq } from '@/components/faq'
 import { Contact } from '@/components/contact'
@@ -18,7 +18,7 @@ export default function Page() {
         <TrustBar />
         <Services />
         <EvaluationForm />
-        <JewelryStore />
+        <FeaturedProducts />
         <BrandPositioning />
         <Faq />
         <Contact />
