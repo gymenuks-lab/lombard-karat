@@ -61,11 +61,11 @@ export function OrderButton({ product, size = "default", className, disabled, fu
         }
       }}
     >
-      <DialogTrigger asChild>
-        <Button size={size} disabled={disabled} className={`${fullWidth ? "w-full" : ""} ${className ?? ""}`}>
-          <ShoppingBag className="size-4" />
-          {disabled ? "Продано" : "Замовити"}
-        </Button>
+      <DialogTrigger
+        render={<Button size={size} disabled={disabled} className={`${fullWidth ? "w-full" : ""} ${className ?? ""}`} />}
+      >
+        <ShoppingBag className="size-4" />
+        {disabled ? "Продано" : "Замовити"}
       </DialogTrigger>
       <DialogContent>
         {done ? (

@@ -8,14 +8,22 @@ export function SiteFooter() {
           <span className="flex size-9 items-center justify-center rounded-md bg-secondary text-primary">
             <Gem className="size-5" />
           </span>
-          <span className="font-serif text-lg font-semibold">Ломбард Карат</span>
+          <span className="font-serif text-lg font-semibold">5 Карат</span>
         </div>
         <p className="max-w-md text-sm text-muted-foreground text-pretty">
-          Золото та срібло під заставу, ювелірні вироби від виробника. Офіційна
-          ліцензована діяльність в Україні.
+          Ювелірний дім: золото та срібло з ломбардної вітрини та нові вироби від
+          виробника. Офіційна ліцензована діяльність в Україні.
         </p>
+        <a
+          href="https://t.me/k5karat"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm font-medium text-primary underline-offset-4 hover:underline"
+        >
+          Наш Telegram-канал: @k5karat
+        </a>
         <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Ломбард Карат. Усі права захищено.
+          © {new Date().getFullYear()} 5 Карат. Усі права захищено.
         </p>
       </div>
     </footer>

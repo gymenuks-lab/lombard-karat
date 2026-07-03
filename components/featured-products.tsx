@@ -4,7 +4,7 @@ import { getProducts } from "@/lib/queries"
 import { ProductCard } from "@/components/product-card"
 
 export async function FeaturedProducts() {
-  const { items } = await getProducts({ limit: 6, sort: "newest" })
+  const { products: items } = await getProducts({ pageSize: 6, sort: "newest" })
 
   return (
     <section id="store" className="bg-background py-16 sm:py-20">

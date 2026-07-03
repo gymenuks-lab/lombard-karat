@@ -30,7 +30,7 @@ export function Contact() {
 
             <div className="grid grid-cols-2 gap-4">
               <a
-                href="https://t.me/"
+                href="https://t.me/k5karat"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-2 rounded-2xl border border-primary/15 bg-card p-5 text-card-foreground transition-colors hover:border-primary/50"
@@ -68,7 +68,7 @@ export function Contact() {
 
           <div className="overflow-hidden rounded-2xl border border-primary/15">
             <iframe
-              title="Карта розташування Ломбард Карат"
+              title="Карта розташування 5 Карат"
               src="https://www.google.com/maps?q=Khreshchatyk+1+Kyiv&output=embed"
               className="h-full min-h-72 w-full"
               loading="lazy"

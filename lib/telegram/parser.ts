@@ -35,7 +35,7 @@ const LOMBARD_KEYWORDS = [
 
 /**
  * Rule-based classification of a product into "lombard" or "manufacturer".
- * Defaults to "lombard" when nothing matches (пожалуйста, the channel is a lombard).
+ * Defaults to "lombard" when nothing matches, since the channel is primarily a lombard.
  */
 export function classifyCategory(text: string): ProductCategory {
   const t = (text || "").toLowerCase()
