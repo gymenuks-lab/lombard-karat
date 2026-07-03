@@ -1,14 +1,15 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Gem, Menu, Phone, X } from 'lucide-react'
+import { useState } from "react"
+import Link from "next/link"
+import { Gem, Menu, Phone, X } from "lucide-react"
 
 const navLinks = [
-  { label: 'Послуги', href: '#services' },
-  { label: 'Оцінка', href: '#evaluation' },
-  { label: 'Магазин', href: '#store' },
-  { label: 'Питання', href: '#faq' },
-  { label: 'Контакти', href: '#contacts' },
+  { label: "Каталог", href: "/catalog" },
+  { label: "Ломбардна вітрина", href: "/catalog?category=lombard" },
+  { label: "Від виробника", href: "/catalog?category=manufacturer" },
+  { label: "Оцінка", href: "/#evaluation" },
+  { label: "Контакти", href: "/#contacts" },
 ]
 
 export function SiteHeader() {
@@ -17,29 +18,25 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <a href="#top" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <span className="flex size-9 items-center justify-center rounded-md bg-secondary text-primary">
             <Gem className="size-5" />
           </span>
           <span className="flex flex-col leading-none">
-            <span className="font-serif text-lg font-semibold tracking-tight">
-              Карат
-            </span>
-            <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-              Ломбард
-            </span>
+            <span className="font-serif text-lg font-semibold tracking-tight">5 Карат</span>
+            <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Ювелірний дім</span>
           </span>
-        </a>
+        </Link>
 
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -66,14 +63,14 @@ export function SiteHeader() {
         <nav className="border-t border-border/60 bg-background md:hidden">
           <div className="mx-auto flex max-w-6xl flex-col px-4 py-2 sm:px-6">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className="border-b border-border/40 py-3 text-sm font-medium text-foreground last:border-0"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <a
               href="tel:+380441234567"
