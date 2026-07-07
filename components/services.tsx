@@ -16,7 +16,7 @@ const categories = [
   {
     icon: Gem,
     title: 'Каблучки',
-    text: 'Обручки, заручини та каблучки з камінням.',
+    text: 'Вишукані каблучки із золота та срібла.',
     href: '/catalog?type=ring',
   },
   {
