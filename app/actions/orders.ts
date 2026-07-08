@@ -10,6 +10,8 @@ export interface OrderInput {
   phone: string
   contact?: string
   comment?: string
+  variantId?: string
+  size?: string
 }
 
 export interface OrderResult {
