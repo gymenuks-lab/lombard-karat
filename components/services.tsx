@@ -1,11 +1,22 @@
 import Link from 'next/link'
-import { Gem, LinkIcon, Sparkles, CircleDot, ArrowRight } from 'lucide-react'
+import {
+  Gem,
+  LinkIcon,
+  Sparkles,
+  CircleDot,
+  Diamond,
+  Layers,
+  Droplet,
+  Circle,
+  Watch,
+  ArrowRight,
+} from 'lucide-react'
 
 const categories = [
   {
     icon: Gem,
     title: 'Каблучки',
-    text: 'Обручки, заручини та каблучки з камінням.',
+    text: 'Вишукані каблучки із золота та срібла.',
     href: '/catalog?type=ring',
   },
   {
@@ -25,6 +36,36 @@ const categories = [
     title: 'Браслети',
     text: 'Вишукані браслети із золота та срібла 925 проби.',
     href: '/catalog?type=bracelet',
+  },
+  {
+    icon: Diamond,
+    title: 'Кольє',
+    text: 'Елегантні кольє із золота та срібла для особливих подій.',
+    href: '/catalog?type=necklace',
+  },
+  {
+    icon: Layers,
+    title: 'Комплекти',
+    text: 'Гармонійні ювелірні набори в єдиному стилі.',
+    href: '/catalog?type=set',
+  },
+  {
+    icon: Droplet,
+    title: 'Кулони',
+    text: 'Підвіски та кулони на будь-який смак.',
+    href: '/catalog?type=pendant',
+  },
+  {
+    icon: Circle,
+    title: 'Пірсинг',
+    text: 'Прикраси для пірсингу із золота та медичної сталі.',
+    href: '/catalog?type=piercing',
+  },
+  {
+    icon: Watch,
+    title: 'Годинники',
+    text: 'Наручні годинники та аксесуари відомих брендів.',
+    href: '/catalog?type=watch',
   },
 ]
 
