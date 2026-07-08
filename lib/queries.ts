@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server"
-import type { Product, ProductCategory } from "@/lib/types"
+import type { Product, ProductCategory, ProductVariant } from "@/lib/types"
 
 export interface ProductFilters {
   category?: ProductCategory
@@ -111,4 +111,19 @@ export async function getFilterOptions(): Promise<{ metals: string[]; itemTypes:
 export async function getFeaturedProducts(limit = 8): Promise<Product[]> {
   const { products } = await getProducts({ pageSize: limit, sort: "newest" })
   return products
+}
+
+export async function getProductVariants(productId: string): Promise<ProductVariant[]> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from("product_variants")
+    .select("*")
+    .eq("product_id", productId)
+    .order("size", { ascending: true })
+
+  if (error) {
+    console.log("[v0] getProductVariants error:", error.message)
+    return []
+  }
+  return (data ?? []) as ProductVariant[]
 }
