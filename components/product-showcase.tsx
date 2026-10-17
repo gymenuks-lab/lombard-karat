@@ -17,7 +17,7 @@ const demos = [
   ["showcase-ring-min", "Мінімалістична золота каблучка", "ring", "/images/gold-ring.png"],
   ["showcase-chain-bis", "Ланцюжок плетіння Бісмарк", "chain", "/images/gold-chain.png"],
   ["showcase-chain-silver", "Срібний ланцюжок", "chain", "/images/silver-chain.png"],
-  ["showcase-earrings-gold", "Золоті сережки", "earrings", "/images/gold-bracelet.png"],
+  ["showcase-earrings-gold", "Золоті сережки", "earrings", "/images/gold-earrings.png"],
   ["showcase-earrings-silver", "Сережки з фіанітами", "earrings", "/images/silver-earrings.png"],
   ["showcase-bracelet-gold", "Золотий браслет", "bracelet", "/images/gold-bracelet.png"],
 ] as const
