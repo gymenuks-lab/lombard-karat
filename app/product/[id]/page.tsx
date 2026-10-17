@@ -48,7 +48,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <main className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12 lg:px-12">
         {/* Breadcrumbs */}
         <nav className="mb-6 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
           <Link href="/" className="hover:text-foreground">
@@ -64,10 +64,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </Link>
         </nav>
 
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+        <div className="grid gap-12 lg:grid-cols-[1.45fr_1fr] lg:gap-16">
           <ProductGallery images={product.images} title={product.title} />
 
-          <div className="flex flex-col">
+          <div className="flex flex-col lg:sticky lg:top-28 lg:self-start">
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground">
                 {CATEGORY_LABELS[product.category]}
@@ -81,17 +81,17 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
             <h1 className="mt-4 font-serif text-2xl font-semibold text-balance sm:text-3xl">{product.title}</h1>
 
-            <p className="mt-4 font-serif text-3xl font-semibold text-foreground">
+            <p className="mt-5 font-serif text-4xl font-medium text-foreground">
               {formatPrice(product.price, product.currency)}
             </p>
 
             {/* Attributes */}
-            <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 rounded-xl border border-border bg-card p-5">
+            <dl className="mt-8 divide-y divide-border border-y border-border">
               {attributes.map((attr) => {
                 const value = product[attr.key]
                 if (!value) return null
                 return (
-                  <div key={attr.key} className="flex flex-col">
+                  <div key={attr.key} className="flex flex-row items-center justify-between gap-4 py-4">
                     <dt className="text-xs uppercase tracking-wide text-muted-foreground">{attr.label}</dt>
                     <dd className="text-sm font-medium">
                       {value}

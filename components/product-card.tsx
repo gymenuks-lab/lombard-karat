@@ -1,49 +1,11 @@
 import Image from "next/image"
 import Link from "next/link"
+import { ArrowUpRight } from "lucide-react"
 import { CATEGORY_LABELS, formatPrice, STATUS_LABELS, type Product } from "@/lib/types"
 import { OrderButton } from "@/components/order-button"
 
 export function ProductCard({ product }: { product: Product }) {
   const cover = product.images[0] || "/placeholder.svg?height=600&width=600"
   const soldOut = product.status === "sold"
-
-  return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:border-primary/50 hover:shadow-lg">
-      <Link href={`/product/${product.id}`} className="relative block aspect-square overflow-hidden bg-muted">
-        <Image
-          src={cover || "/placeholder.svg"}
-          alt={product.title}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <span className="absolute left-3 top-3 rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
-          {CATEGORY_LABELS[product.category]}
-        </span>
-        {product.status !== "available" && (
-          <span className="absolute right-3 top-3 rounded-full bg-background/90 px-3 py-1 text-xs font-medium text-foreground">
-            {STATUS_LABELS[product.status]}
-          </span>
-        )}
-      </Link>
-
-      <div className="flex flex-1 flex-col p-4">
-        <Link href={`/product/${product.id}`}>
-          <h3 className="line-clamp-2 text-sm font-semibold leading-snug hover:text-primary">{product.title}</h3>
-        </Link>
-        <div className="mt-1 flex flex-wrap gap-x-3 gap-y-0.5 text-xs text-muted-foreground">
-          {product.metal && <span>{product.metal}</span>}
-          {product.sample && <span>Проба {product.sample}</span>}
-          {product.weight && <span>{product.weight} г</span>}
-        </div>
-
-        <div className="mt-auto flex items-center justify-between gap-2 pt-4">
-          <span className="font-serif text-lg font-semibold text-foreground">
-            {formatPrice(product.price, product.currency)}
-          </span>
-          <OrderButton product={product} size="sm" disabled={soldOut} />
-        </div>
-      </div>
-    </article>
-  )
+  return <article className="group"><Link href={`/product/${product.id}`} className="relative block aspect-[.88] overflow-hidden bg-[#eeeae1]"><Image src={cover} alt={product.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.035]" /><span className="absolute left-4 top-4 text-[10px] uppercase tracking-[.18em] text-white drop-shadow-md">{CATEGORY_LABELS[product.category]}</span>{product.status !== "available" && <span className="absolute right-4 top-4 bg-background/90 px-2 py-1 text-[10px] uppercase tracking-wider">{STATUS_LABELS[product.status]}</span>}<span className="absolute bottom-4 right-4 flex size-10 translate-y-2 items-center justify-center bg-background opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100"><ArrowUpRight className="size-4" /></span></Link><div className="pt-4"><Link href={`/product/${product.id}`}><h3 className="font-serif text-lg leading-tight group-hover:text-primary">{product.title}</h3></Link><div className="mt-2 flex flex-wrap gap-x-3 text-xs text-muted-foreground">{product.metal && <span>{product.metal}</span>}{product.sample && <span>Проба {product.sample}</span>}{product.weight && <span>{product.weight} г</span>}</div><div className="mt-4 flex items-center justify-between"><span className="font-serif text-xl">{formatPrice(product.price, product.currency)}</span><OrderButton product={product} size="sm" disabled={soldOut} /></div></div></article>
 }

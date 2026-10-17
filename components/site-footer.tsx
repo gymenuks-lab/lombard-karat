@@ -1,35 +1,3 @@
 import Image from 'next/image'
-
-export function SiteFooter() {
-  return (
-    <footer className="border-t border-border bg-background py-10">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 text-center sm:px-6">
-        <div className="flex items-center gap-2">
-          <Image
-            src="/images/logo-5karat.png"
-            alt="5 Карат — ювелірний магазин золота та срібла"
-            width={96}
-            height={96}
-            className="h-12 w-12 rounded-md object-cover"
-          />
-          <span className="font-serif text-lg font-semibold">5 Карат</span>
-        </div>
-        <p className="max-w-md text-sm text-muted-foreground text-pretty">
-          Ювелірний магазин: золото та срібло від виробника та перевірені вживані
-          вироби. Доставка по всій Україні, гарантія та сертифікати на кожен виріб.
-        </p>
-        <a
-          href="https://t.me/k5karat"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm font-medium text-primary underline-offset-4 hover:underline"
-        >
-          Наш Telegram-канал: @k5karat
-        </a>
-        <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} 5 Карат. Усі права захищено.
-        </p>
-      </div>
-    </footer>
-  )
-}
+import Link from 'next/link'
+export function SiteFooter() { return <footer className="bg-background px-5 pt-14 sm:px-8 lg:px-12"><div className="mx-auto max-w-7xl"><div className="flex flex-col justify-between gap-10 border-t border-border py-10 md:flex-row md:items-start"><div><Link href="/" className="flex items-center gap-3"><Image src="/images/logo-5karat.png" alt="5 Карат" width={72} height={72} className="h-10 w-10 object-cover" /><span className="font-serif text-xl">5 Карат</span></Link><p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">Ювелірний магазин золота та срібла. Одеса, Україна.</p></div><div className="flex flex-wrap gap-x-10 gap-y-3 text-xs uppercase tracking-[.15em]"><Link href="/catalog" className="nav-link">Каталог</Link><Link href="/#contacts" className="nav-link">Контакти</Link><a href="https://t.me/k5karat" target="_blank" rel="noopener noreferrer" className="nav-link">Telegram</a></div></div><div className="overflow-hidden whitespace-nowrap border-t border-border pt-5"><span className="font-serif text-[clamp(5rem,18vw,15rem)] leading-[.72] tracking-[-.08em] text-foreground/[.045]">5 КАРАТ</span></div><p className="border-t border-border py-5 text-[10px] uppercase tracking-[.18em] text-muted-foreground">© {new Date().getFullYear()} 5 Карат. Усі права захищено.</p></div></footer> }
