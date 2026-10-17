@@ -93,7 +93,7 @@ export function Services() {
               href={c.href}
               className="group flex flex-col rounded-2xl border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg"
             >
-              <span className="flex size-12 items-center justify-center rounded-xl bg-secondary text-primary">
+              <span className="flex size-12 items-center justify-center rounded-xl bg-secondary text-gold">
                 <c.icon className="size-6" />
               </span>
               <h3 className="mt-5 text-lg font-semibold">{c.title}</h3>

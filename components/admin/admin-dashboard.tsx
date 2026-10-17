@@ -54,7 +54,7 @@ export function AdminDashboard({
       <header className="border-b border-border bg-background">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-2">
-            <span className="flex size-9 items-center justify-center rounded-md bg-secondary text-primary">
+            <span className="flex size-9 items-center justify-center rounded-md bg-secondary text-gold">
               <Gem className="size-5" />
             </span>
             <span className="font-serif text-lg font-semibold">5 Карат · Адмін</span>

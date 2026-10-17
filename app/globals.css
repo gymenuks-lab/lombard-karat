@@ -4,11 +4,52 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ==========================================================================
+   5 КАРАТ — design system (stage 1)
+   Layers: 1) raw palette  2) motion  3) semantic tokens  4) surfaces
+           5) base  6) type / layout utilities  7) reduced motion
+   Gold (champagne) is an accent only: hairlines, markers, focus on dark.
+   gold-500 is NEVER used as text on light surfaces (2.3:1 contrast).
+   ========================================================================== */
+
+/* 1) Raw palette -------------------------------------------------------- */
+@theme static {
+  --color-ivory-50: #fbf9f4; /* page background (warm white) */
+  --color-ivory-100: #f4efe6; /* alternate sections, muted surfaces */
+  --color-ivory-200: #ebe4d6; /* image backdrop, skeletons */
+  --color-paper: #fffdf9; /* cards, popovers */
+
+  --color-line: #e2dacb; /* hairlines */
+  --color-line-strong: #cbc1ae; /* input borders */
+
+  --color-ink-950: #100f0d; /* scrims over photography */
+  --color-ink-900: #1a1816; /* text, primary buttons, dark sections */
+  --color-ink-800: #262320; /* dark surfaces, hover on dark */
+  --color-ink-600: #57524a; /* secondary text */
+  --color-ink-500: #6b665a; /* muted text (>= 4.5:1 on all ivory tones) */
+  --color-ink-300: #a8a397; /* muted text on dark */
+
+  --color-gold-300: #d8c29a; /* champagne on dark surfaces */
+  --color-gold-500: #bfa270; /* hairlines and decoration on light only */
+  --color-gold-700: #7e6330; /* rare gold text on light (5.4:1) */
+
+  --color-error: #a5342a;
+}
+
+/* 2) Motion foundation ---------------------------------------------------- */
+@theme {
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --default-transition-duration: 250ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 3) Semantic tokens (mapped to the shadcn variable names) -------------- */
 @theme inline {
   --font-heading: var(--font-playfair), 'Georgia', serif;
-  --font-sans: var(--font-geist-sans), 'Geist Fallback';
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), 'Georgia', serif;
-  --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, monospace;
   --color-gold: var(--gold);
   --color-gold-foreground: var(--gold-foreground);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -53,90 +94,311 @@
 
 :root {
   color-scheme: light;
-  --background: oklch(0.99 0.004 85);
-  --foreground: oklch(0.16 0.005 60);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.16 0.005 60);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.16 0.005 60);
-  --primary: oklch(0.72 0.13 79);
-  --primary-foreground: oklch(0.17 0.01 70);
-  --secondary: oklch(0.16 0.005 60);
-  --secondary-foreground: oklch(0.97 0.01 85);
-  --muted: oklch(0.96 0.008 85);
-  --muted-foreground: oklch(0.5 0.01 70);
-  --accent: oklch(0.95 0.03 85);
-  --accent-foreground: oklch(0.3 0.05 75);
-  --gold: oklch(0.72 0.13 79);
-  --gold-foreground: oklch(0.17 0.01 70);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0.01 80);
-  --input: oklch(0.9 0.01 80);
-  --ring: oklch(0.72 0.13 79);
-  --chart-1: oklch(0.72 0.13 79);
-  --chart-2: oklch(0.6 0.11 75);
-  --chart-3: oklch(0.45 0.02 70);
-  --chart-4: oklch(0.3 0.01 65);
-  --chart-5: oklch(0.16 0.005 60);
-  --radius: 0.5rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.16 0.005 60);
-  --sidebar-primary: oklch(0.72 0.13 79);
-  --sidebar-primary-foreground: oklch(0.17 0.01 70);
-  --sidebar-accent: oklch(0.95 0.03 85);
-  --sidebar-accent-foreground: oklch(0.3 0.05 75);
-  --sidebar-border: oklch(0.9 0.01 80);
-  --sidebar-ring: oklch(0.72 0.13 79);
+
+  --background: var(--color-ivory-50);
+  --foreground: var(--color-ink-900);
+  --card: var(--color-paper);
+  --card-foreground: var(--color-ink-900);
+  --popover: var(--color-paper);
+  --popover-foreground: var(--color-ink-900);
+  --primary: var(--color-ink-900);
+  --primary-foreground: var(--color-ivory-50);
+  --secondary: var(--color-ink-900);
+  --secondary-foreground: var(--color-ivory-50);
+  --muted: var(--color-ivory-100);
+  --muted-foreground: var(--color-ink-500);
+  --accent: var(--color-ivory-100);
+  --accent-foreground: var(--color-ink-900);
+  --destructive: var(--color-error);
+  --border: var(--color-line);
+  --input: var(--color-line-strong);
+  --ring: var(--color-ink-900);
+  --gold: var(--color-gold-500);
+  --gold-foreground: var(--color-ink-900);
+
+  --chart-1: var(--color-gold-500);
+  --chart-2: var(--color-gold-700);
+  --chart-3: var(--color-ink-600);
+  --chart-4: var(--color-ink-800);
+  --chart-5: var(--color-ink-900);
+
+  --sidebar: var(--color-ivory-100);
+  --sidebar-foreground: var(--color-ink-900);
+  --sidebar-primary: var(--color-ink-900);
+  --sidebar-primary-foreground: var(--color-ivory-50);
+  --sidebar-accent: var(--color-ivory-200);
+  --sidebar-accent-foreground: var(--color-ink-900);
+  --sidebar-border: var(--color-line);
+  --sidebar-ring: var(--color-ink-900);
+
+  /* Base radius: strict editorial. Buttons/inputs use rounded-sm (~2.4px),
+     dialogs rounded-lg (4px); imagery stays square or 2px. */
+  --radius: 0.25rem;
+
+  /* Layout rhythm */
+  --gutter: 1.25rem;
+  --section-y: 4rem;
+
+  /* Motion durations (used by custom CSS; Tailwind default is 250ms) */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 450ms;
+  --duration-image: 700ms;
 }
 
-/* Single branded theme: gold/black/white palette regardless of system color scheme */
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) {
-    color-scheme: light;
-    --background: oklch(0.99 0.004 85);
-    --foreground: oklch(0.16 0.005 60);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.16 0.005 60);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.16 0.005 60);
-    --primary: oklch(0.72 0.13 79);
-    --primary-foreground: oklch(0.17 0.01 70);
-    --secondary: oklch(0.16 0.005 60);
-    --secondary-foreground: oklch(0.97 0.01 85);
-    --muted: oklch(0.96 0.008 85);
-    --muted-foreground: oklch(0.5 0.01 70);
-    --accent: oklch(0.95 0.03 85);
-    --accent-foreground: oklch(0.3 0.05 75);
-    --gold: oklch(0.72 0.13 79);
-    --gold-foreground: oklch(0.17 0.01 70);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.9 0.01 80);
-    --input: oklch(0.9 0.01 80);
-    --ring: oklch(0.72 0.13 79);
-    --chart-1: oklch(0.72 0.13 79);
-    --chart-2: oklch(0.6 0.11 75);
-    --chart-3: oklch(0.45 0.02 70);
-    --chart-4: oklch(0.3 0.01 65);
-    --chart-5: oklch(0.16 0.005 60);
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.16 0.005 60);
-    --sidebar-primary: oklch(0.72 0.13 79);
-    --sidebar-primary-foreground: oklch(0.17 0.01 70);
-    --sidebar-accent: oklch(0.95 0.03 85);
-    --sidebar-accent-foreground: oklch(0.3 0.05 75);
-    --sidebar-border: oklch(0.9 0.01 80);
-    --sidebar-ring: oklch(0.72 0.13 79);
+@media (min-width: 640px) {
+  :root {
+    --gutter: 2rem;
   }
 }
 
+@media (min-width: 768px) {
+  :root {
+    --section-y: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --section-y: 8rem;
+  }
+}
+
+/* 4) Dark surface scope -------------------------------------------------
+   Wrap a section in .surface-ink and every semantic token inside flips,
+   so text-foreground / text-muted-foreground / border-border keep working. */
+.surface-ink {
+  --background: var(--color-ink-900);
+  --foreground: var(--color-ivory-50);
+  --card: var(--color-ink-800);
+  --card-foreground: var(--color-ivory-50);
+  --popover: var(--color-ink-800);
+  --popover-foreground: var(--color-ivory-50);
+  --primary: var(--color-ivory-50);
+  --primary-foreground: var(--color-ink-900);
+  --secondary: var(--color-ink-800);
+  --secondary-foreground: var(--color-ivory-50);
+  --muted: var(--color-ink-800);
+  --muted-foreground: var(--color-ink-300);
+  --accent: var(--color-ink-800);
+  --accent-foreground: var(--color-ivory-50);
+  --border: color-mix(in oklab, var(--color-ivory-50) 16%, transparent);
+  --input: color-mix(in oklab, var(--color-ivory-50) 28%, transparent);
+  --ring: var(--color-gold-300);
+  --gold: var(--color-gold-300);
+  --gold-foreground: var(--color-ink-900);
+  color-scheme: dark;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* 5) Base ----------------------------------------------------------------- */
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
+
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    /* Only Playfair 400/500 are loaded. Do not fake heavier weights. */
+    font-synthesis-weight: none;
+    scroll-padding-top: 5rem;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-gold-300) 55%, transparent);
+    color: var(--color-ink-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
   html {
-    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+}
+
+/* 6) Type, layout and link utilities -------------------------------------- */
+
+/* Editorial headings: Playfair. Never uppercase. */
+@utility type-display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.75rem, 1.9rem + 3.6vw, 5.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+@utility type-h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 1.7rem + 2.2vw, 3.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+@utility type-h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 1.35rem + 1.7vw, 2.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+@utility type-h3 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+/* Interface text: Geist. Sentence case. */
+@utility type-body-lg {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+@utility type-body {
+  font-size: 1rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+@utility type-body-sm {
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+@utility type-caption {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+
+/* Uppercase is reserved for eyebrow, navigation and button labels. */
+@utility type-eyebrow {
+  font-size: 0.75rem;
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@utility type-nav {
+  font-size: 0.8125rem;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Prices stay natural-case with tabular figures. */
+@utility type-price {
+  font-size: 1rem;
+  line-height: 1.2;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility type-price-lg {
+  font-size: clamp(1.75rem, 1.5rem + 0.8vw, 2rem);
+  line-height: 1.15;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Containers: content width excludes the gutter. */
+@utility container-site {
+  width: 100%;
+  margin-inline: auto;
+  max-width: calc(80rem + 2 * var(--gutter));
+  padding-inline: var(--gutter);
+}
+
+@utility container-wide {
+  width: 100%;
+  margin-inline: auto;
+  max-width: calc(90rem + 2 * var(--gutter));
+  padding-inline: var(--gutter);
+}
+
+@utility container-narrow {
+  width: 100%;
+  margin-inline: auto;
+  max-width: calc(45rem + 2 * var(--gutter));
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+/* Links ------------------------------------------------------------------- */
+@utility link-inline {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--input);
+  transition-property: text-decoration-color, color;
+
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Navigation link: a gold hairline grows from the left on hover / current. */
+@utility link-nav {
+  position: relative;
+  transition-property: color;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: -6px;
+    height: 1px;
+    background-color: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-base) var(--ease-luxe);
+  }
+
+  &:hover::after,
+  &[aria-current='page']::after {
+    transform: scaleX(1);
+  }
+}
+
+/* 7) Reduced motion -------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
