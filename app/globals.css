@@ -14,7 +14,7 @@
  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1); transition-delay: var(--reveal-delay, 0ms); }
  .reveal.is-visible { opacity: 1; transform: translateY(0); }
  .reveal-mask { display: inline-block; overflow: hidden; vertical-align: bottom; }
- .reveal-mask > .reveal-line { display: inline-block; transform: translateY(112%); opacity: .01; transition: transform .9s cubic-bezier(.22,1,.36,1), opacity .65s ease; transition-delay: var(--reveal-delay, 0ms); }
+ .reveal-mask > .reveal-line { display: inline-block; transform: translateY(-105%); opacity: 0; transition: transform .95s cubic-bezier(.22,1,.36,1), opacity .7s ease; transition-delay: var(--reveal-delay, 0ms); }
  .reveal-mask.is-visible > .reveal-line { transform: translateY(0); opacity: 1; }
  .reveal-soft { opacity: 0; transform: translateY(10px); transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); transition-delay: var(--reveal-delay, 0ms); }
  .reveal-soft.is-visible { opacity: 1; transform: translateY(0); }
