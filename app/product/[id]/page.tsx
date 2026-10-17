@@ -4,6 +4,8 @@ import { ShieldCheck, Truck, BadgeCheck } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Breadcrumbs } from "@/components/breadcrumbs"
+import { FavoriteButton } from "@/components/favorite-button"
+import { RecentlyViewed } from "@/components/recently-viewed"
 import { ProductGallery } from "@/components/product-gallery"
 import { ProductGrid } from "@/components/product-grid"
 import { OrderButton } from "@/components/order-button"
@@ -106,6 +108,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
               Залиште заявку — менеджер зв&apos;яжеться з вами для підтвердження та деталей оплати.
             </p>
 
+            <FavoriteButton productId={product.id} title={product.title} variant="inline" className="mt-6" />
+
             <p className="type-body-sm mt-6 text-muted-foreground">
               Є питання щодо виробу?{" "}
               <a href={siteConfig.phone.href} className="link-inline text-foreground">
@@ -149,6 +153,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <ProductGrid products={related} />
           </section>
         )}
+
+        <RecentlyViewed currentId={product.id} />
       </main>
       <SiteFooter />
     </>

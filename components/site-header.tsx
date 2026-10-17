@@ -4,9 +4,11 @@ import { Suspense, useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname, useSearchParams } from "next/navigation"
-import { Menu, Phone, Send, X } from "lucide-react"
+import { Heart, Menu, Phone, Send, X } from "lucide-react"
 
 import { buttonVariants } from "@/components/ui/button"
+import { SiteSearch } from "@/components/site-search"
+import { FAVORITES_KEY, useLocalList } from "@/lib/local-list"
 import { cn } from "@/lib/utils"
 import { mainNav, siteConfig, type NavItem } from "@/lib/site-config"
 
@@ -68,6 +70,7 @@ function NavListWithActive(props: Omit<NavListProps, "activeHref">) {
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+  const favoritesCount = useLocalList(FAVORITES_KEY).length
 
   // Закрываем меню при смене страницы.
   useEffect(() => {
@@ -116,7 +119,7 @@ export function SiteHeader() {
           />
           <span className="flex flex-col gap-1.5 leading-none sm:hidden lg:flex">
             <span className="font-heading text-xl tracking-[0.14em] uppercase">{siteConfig.name}</span>
-            <span className="type-caption tracking-[0.2em] text-muted-foreground uppercase">{siteConfig.tagline}</span>
+            <span className="type-caption hidden tracking-[0.2em] text-muted-foreground uppercase lg:block">{siteConfig.tagline}</span>
           </span>
         </Link>
 
@@ -124,11 +127,27 @@ export function SiteHeader() {
           <NavListWithActive variant="desktop" />
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
+          <SiteSearch />
+          <Link
+            href="/favorites"
+            aria-label={favoritesCount > 0 ? `Обране: ${favoritesCount}` : "Обране"}
+            className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "relative")}
+          >
+            <Heart aria-hidden="true" strokeWidth={1.5} className="size-5" />
+            {favoritesCount > 0 && (
+              <span
+                aria-hidden="true"
+                className="absolute top-1.5 right-1 flex min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[0.625rem] leading-4 font-medium text-primary-foreground"
+              >
+                {favoritesCount}
+              </span>
+            )}
+          </Link>
           <a
             href={siteConfig.phone.href}
             aria-label={`Подзвонити: ${siteConfig.phone.display}`}
-            className={cn(buttonVariants({ variant: "outline", size: "icon" }), "lg:hidden")}
+            className={cn(buttonVariants({ variant: "outline", size: "icon" }), "hidden md:inline-flex lg:hidden")}
           >
             <Phone aria-hidden="true" />
           </a>

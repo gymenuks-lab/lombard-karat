@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Gem } from "lucide-react"
 
+import { FavoriteButton } from "@/components/favorite-button"
 import { cn } from "@/lib/utils"
 import { CATEGORY_LABELS, formatPrice, STATUS_LABELS, type Product } from "@/lib/types"
 
@@ -24,7 +25,7 @@ export function ProductCard({ product }: { product: Product }) {
   ].filter(Boolean)
 
   return (
-    <article className="group">
+    <article className="group relative">
       <Link href={`/product/${product.id}`} className="block">
         <div className="relative aspect-[4/5] overflow-hidden bg-ivory-200">
           {cover ? (
@@ -78,6 +79,7 @@ export function ProductCard({ product }: { product: Product }) {
           {formatPrice(product.price, product.currency)}
         </p>
       </Link>
+      <FavoriteButton productId={product.id} title={product.title} />
     </article>
   )
 }
