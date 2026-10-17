@@ -5,7 +5,7 @@ export function Contact() {
     <section id="contacts" className="bg-secondary py-16 text-secondary-foreground sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
             Контакти
           </p>
           <h2 className="mt-3 font-serif text-3xl font-semibold text-balance sm:text-4xl">

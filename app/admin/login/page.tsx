@@ -14,7 +14,7 @@ export default function AdminLoginPage() {
     <main className="flex min-h-screen items-center justify-center bg-muted px-4">
       <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-8 shadow-sm">
         <div className="mb-6 flex flex-col items-center gap-2 text-center">
-          <span className="flex size-11 items-center justify-center rounded-md bg-secondary text-primary">
+          <span className="flex size-11 items-center justify-center rounded-md bg-secondary text-gold">
             <Gem className="size-6" />
           </span>
           <h1 className="font-serif text-2xl font-semibold">Адмін-панель 5 Карат</h1>

@@ -28,14 +28,14 @@ export function Hero() {
 
       <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-20">
         <div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium tracking-wide text-primary">
+          <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs font-medium tracking-wide text-gold">
             <Sparkles className="size-3.5" />
             Ювелірний магазин · золото та срібло
           </span>
 
           <h1 className="mt-5 font-serif text-4xl leading-[1.1] font-semibold text-balance sm:text-5xl lg:text-6xl">
             Вишукані прикраси із золота та{' '}
-            <span className="text-primary">срібла</span>
+            <span className="text-gold">срібла</span>
           </h1>
 
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-secondary-foreground/75 text-pretty">
@@ -47,14 +47,14 @@ export function Hero() {
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
               href="/catalog"
-              className="inline-flex h-12 items-center gap-2 rounded-lg bg-primary px-6 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              className="inline-flex h-12 items-center gap-2 rounded-lg bg-secondary-foreground px-6 text-base font-semibold text-secondary transition-colors hover:bg-secondary-foreground/90"
             >
               Переглянути каталог
               <ArrowRight className="size-4" />
             </Link>
             <Link
               href="/catalog?category=manufacturer"
-              className="inline-flex h-12 items-center gap-2 rounded-lg border border-primary/30 bg-background/10 px-6 text-base font-semibold text-secondary-foreground backdrop-blur-sm transition-colors hover:bg-background/20"
+              className="inline-flex h-12 items-center gap-2 rounded-lg border border-secondary-foreground/30 bg-background/10 px-6 text-base font-semibold text-secondary-foreground backdrop-blur-sm transition-colors hover:bg-background/20"
             >
               Новинки від виробника
             </Link>
@@ -62,11 +62,11 @@ export function Hero() {
 
           <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-secondary-foreground/70">
             <span className="inline-flex items-center gap-2">
-              <Truck className="size-4 text-primary" />
+              <Truck className="size-4 text-gold" />
               Доставка по всій Україні
             </span>
             <span className="inline-flex items-center gap-2">
-              <ShieldCheck className="size-4 text-primary" />
+              <ShieldCheck className="size-4 text-gold" />
               Гарантія та сертифікати
             </span>
           </div>
@@ -75,7 +75,7 @@ export function Hero() {
         {/* Quick category card */}
         <div className="rounded-2xl border border-primary/20 bg-card p-5 text-card-foreground shadow-2xl sm:p-7">
           <div className="flex items-center gap-2">
-            <span className="flex size-10 items-center justify-center rounded-xl bg-secondary text-primary">
+            <span className="flex size-10 items-center justify-center rounded-xl bg-secondary text-gold">
               <Gem className="size-5" />
             </span>
             <div>
