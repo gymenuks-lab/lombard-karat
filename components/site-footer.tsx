@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { siteConfig } from "@/lib/site-config"
+import { contacts, DEMO_NOTICE, demoMode, siteConfig } from "@/lib/site-config"
 import { CATEGORY_LABELS } from "@/lib/types"
 
 const catalogLinks = [
@@ -53,20 +53,26 @@ export function SiteFooter() {
 
             <div className="lg:col-span-3">
               <h2 className="type-eyebrow">Контакти</h2>
-              <ul className="mt-5 flex flex-col gap-3">
-                <li>
-                  <a href={siteConfig.phone.href} className={linkClass}>
-                    {siteConfig.phone.display}
-                  </a>
-                </li>
-                <li>
-                  <a href={siteConfig.telegram.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                    Telegram {siteConfig.telegram.handle}
-                  </a>
-                </li>
-                <li className="type-body-sm text-muted-foreground">{siteConfig.address}</li>
-                <li className="type-body-sm text-muted-foreground">{siteConfig.hours}</li>
-              </ul>
+              {contacts ? (
+                <ul className="mt-5 flex flex-col gap-3">
+                  <li>
+                    <a href={contacts.phone.href} className={linkClass}>
+                      {contacts.phone.display}
+                    </a>
+                  </li>
+                  <li>
+                    <a href={contacts.telegram.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                      Telegram {contacts.telegram.handle}
+                    </a>
+                  </li>
+                  <li className="type-body-sm text-muted-foreground">{contacts.address}</li>
+                  <li className="type-body-sm text-muted-foreground">{contacts.hours}</li>
+                </ul>
+              ) : (
+                <p className="type-body-sm mt-5 max-w-xs text-muted-foreground">
+                  Контактні дані у демонстраційній версії не публікуються.
+                </p>
+              )}
             </div>
           </div>
 
@@ -74,6 +80,7 @@ export function SiteFooter() {
             <p className="type-caption text-muted-foreground">
               © {new Date().getFullYear()} {siteConfig.name}. Усі права захищено.
             </p>
+            {demoMode && <p className="type-caption mt-2 text-muted-foreground">{DEMO_NOTICE}</p>}
           </div>
         </div>
       </div>

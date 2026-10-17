@@ -1,5 +1,6 @@
 "use server"
 
+import { demoMode } from "@/lib/site-config"
 import { createAdminClient } from "@/lib/supabase/admin"
 import { sendMessage } from "@/lib/telegram/api"
 import { formatPrice } from "@/lib/types"
@@ -17,6 +18,8 @@ export interface OrderInput {
 export interface OrderResult {
   ok: boolean
   error?: string
+  /** true: demo-режим, заявку не збережено і нікуди не надіслано */
+  demo?: boolean
 }
 
 function isValidPhone(phone: string) {
@@ -30,6 +33,9 @@ export async function createOrder(input: OrderInput): Promise<OrderResult> {
 
   if (!name || name.length < 2) return { ok: false, error: "Вкажіть ваше ім'я" }
   if (!phone || !isValidPhone(phone)) return { ok: false, error: "Вкажіть коректний номер телефону" }
+
+  // DEMO MODE: після валідації виходимо до будь-якого запису в базу чи Telegram.
+  if (demoMode) return { ok: true, demo: true }
 
   const supabase = createAdminClient()
 

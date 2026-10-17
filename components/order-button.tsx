@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { createOrder } from "@/app/actions/orders"
+import { demoMode } from "@/lib/site-config"
 import { formatPrice, type Product } from "@/lib/types"
 
 interface OrderButtonProps {
@@ -29,6 +30,7 @@ interface OrderButtonProps {
 export function OrderButton({ product, size = "default", className, disabled, fullWidth }: OrderButtonProps) {
   const [open, setOpen] = useState(false)
   const [done, setDone] = useState(false)
+  const [isDemoResult, setIsDemoResult] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
 
@@ -43,6 +45,7 @@ export function OrderButton({ product, size = "default", className, disabled, fu
         comment: String(formData.get("comment") || ""),
       })
       if (result.ok) {
+        setIsDemoResult(Boolean(result.demo))
         setDone(true)
       } else {
         setError(result.error ?? "Сталася помилка")
@@ -71,9 +74,13 @@ export function OrderButton({ product, size = "default", className, disabled, fu
         {done ? (
           <div className="flex flex-col items-center gap-3 py-6 text-center">
             <CheckCircle2 className="size-12 text-primary" />
-            <DialogTitle className="font-serif text-xl">Замовлення прийнято!</DialogTitle>
+            <DialogTitle className="font-serif text-xl">
+              {isDemoResult ? "Демонстраційний режим" : "Замовлення прийнято!"}
+            </DialogTitle>
             <DialogDescription>
-              Дякуємо. Наш менеджер зв&apos;яжеться з вами найближчим часом для підтвердження.
+              {isDemoResult
+                ? "Це портфоліо-проєкт: заявку не збережено й нікому не надіслано. У бойовому режимі тут з’являється підтвердження."
+                : "Дякуємо. Наш менеджер зв'яжеться з вами найближчим часом для підтвердження."}
             </DialogDescription>
             <Button className="mt-2" onClick={() => setOpen(false)}>
               Готово
@@ -111,6 +118,11 @@ export function OrderButton({ product, size = "default", className, disabled, fu
                 <Label htmlFor="comment">Коментар (необов&apos;язково)</Label>
                 <Textarea id="comment" name="comment" rows={2} placeholder="Побажання до замовлення" />
               </div>
+              {demoMode && (
+                <p className="type-caption text-muted-foreground">
+                  Демонстраційна форма: введені дані нікуди не надсилаються.
+                </p>
+              )}
               {error && <p className="text-sm text-destructive">{error}</p>}
               <DialogFooter>
                 <Button type="submit" disabled={isPending} className="w-full">

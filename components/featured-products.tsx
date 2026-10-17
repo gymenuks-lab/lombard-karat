@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react"
 
 import { ProductGrid } from "@/components/product-grid"
 import { getProducts } from "@/lib/queries"
-import { siteConfig } from "@/lib/site-config"
+import { contacts } from "@/lib/site-config"
 
 export async function FeaturedProducts() {
   const { products: items } = await getProducts({ pageSize: 4, sort: "newest" })
@@ -28,11 +28,17 @@ export async function FeaturedProducts() {
         <div className="mt-12 lg:mt-16">
           {items.length === 0 ? (
             <p className="type-body-sm max-w-md text-muted-foreground">
-              Товари скоро з&apos;являться тут. Стежте за оновленнями в нашому{" "}
-              <a href={siteConfig.telegram.href} target="_blank" rel="noopener noreferrer" className="link-inline text-foreground">
-                Telegram-каналі
-              </a>
-              .
+              Товари скоро з&apos;являться тут.
+              {contacts && (
+                <>
+                  {" "}
+                  Стежте за оновленнями в нашому{" "}
+                  <a href={contacts.telegram.href} target="_blank" rel="noopener noreferrer" className="link-inline text-foreground">
+                    Telegram-каналі
+                  </a>
+                  .
+                </>
+              )}
             </p>
           ) : (
             <ProductGrid products={items} />

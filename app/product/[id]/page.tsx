@@ -10,7 +10,7 @@ import { ProductGallery } from "@/components/product-gallery"
 import { ProductGrid } from "@/components/product-grid"
 import { OrderButton } from "@/components/order-button"
 import { getProductById, getRelatedProducts } from "@/lib/queries"
-import { siteConfig } from "@/lib/site-config"
+import { contacts, demoMode } from "@/lib/site-config"
 import { cn } from "@/lib/utils"
 import { CATEGORY_LABELS, formatPrice, STATUS_LABELS, type Product } from "@/lib/types"
 
@@ -106,21 +106,25 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <OrderButton product={product} size="lg" disabled={soldOut} fullWidth />
             </div>
             <p className="type-caption mt-3 text-muted-foreground lg:text-center">
-              Залиште заявку — менеджер зв&apos;яжеться з вами для підтвердження та деталей оплати.
+              {demoMode
+                ? "Демонстраційна форма: заявку не буде збережено й надіслано."
+                : "Залиште заявку — менеджер зв'яжеться з вами для підтвердження та деталей оплати."}
             </p>
 
             <FavoriteButton productId={product.id} title={product.title} variant="inline" className="mt-6" />
 
-            <p className="type-body-sm mt-6 text-muted-foreground">
-              Є питання щодо виробу?{" "}
-              <a href={siteConfig.phone.href} className="link-inline text-foreground">
-                {siteConfig.phone.display}
-              </a>{" "}
-              або{" "}
-              <a href={siteConfig.telegram.href} target="_blank" rel="noopener noreferrer" className="link-inline text-foreground">
-                Telegram
-              </a>
-            </p>
+            {contacts && (
+              <p className="type-body-sm mt-6 text-muted-foreground">
+                Є питання щодо виробу?{" "}
+                <a href={contacts.phone.href} className="link-inline text-foreground">
+                  {contacts.phone.display}
+                </a>{" "}
+                або{" "}
+                <a href={contacts.telegram.href} target="_blank" rel="noopener noreferrer" className="link-inline text-foreground">
+                  Telegram
+                </a>
+              </p>
+            )}
 
             <ul className="mt-8 flex flex-col gap-3 border-t border-border pt-8">
               {trustPoints.map(({ icon: Icon, label }) => (

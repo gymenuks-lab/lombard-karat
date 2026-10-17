@@ -10,7 +10,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { SiteSearch } from "@/components/site-search"
 import { FAVORITES_KEY, useLocalList } from "@/lib/local-list"
 import { cn } from "@/lib/utils"
-import { mainNav, siteConfig, type NavItem } from "@/lib/site-config"
+import { contacts, DEMO_NOTICE, mainNav, siteConfig, type NavItem } from "@/lib/site-config"
 
 const MOBILE_MENU_ID = "mobile-menu"
 
@@ -144,20 +144,24 @@ export function SiteHeader() {
               </span>
             )}
           </Link>
-          <a
-            href={siteConfig.phone.href}
-            aria-label={`Подзвонити: ${siteConfig.phone.display}`}
-            className={cn(buttonVariants({ variant: "outline", size: "icon" }), "hidden md:inline-flex lg:hidden")}
-          >
-            <Phone aria-hidden="true" />
-          </a>
-          <a
-            href={siteConfig.phone.href}
-            className={cn(buttonVariants({ variant: "default" }), "hidden lg:inline-flex")}
-          >
-            <Phone aria-hidden="true" />
-            Подзвонити
-          </a>
+          {contacts && (
+            <>
+              <a
+                href={contacts.phone.href}
+                aria-label={`Подзвонити: ${contacts.phone.display}`}
+                className={cn(buttonVariants({ variant: "outline", size: "icon" }), "hidden md:inline-flex lg:hidden")}
+              >
+                <Phone aria-hidden="true" />
+              </a>
+              <a
+                href={contacts.phone.href}
+                className={cn(buttonVariants({ variant: "default" }), "hidden lg:inline-flex")}
+              >
+                <Phone aria-hidden="true" />
+                Подзвонити
+              </a>
+            </>
+          )}
           <button
             type="button"
             aria-label={open ? "Закрити меню" : "Відкрити меню"}
@@ -182,22 +186,28 @@ export function SiteHeader() {
             </nav>
 
             <div className="flex flex-col gap-6 pb-4">
-              <a
-                href={siteConfig.phone.href}
-                className={cn(buttonVariants({ variant: "default", size: "lg" }), "w-full")}
-              >
-                <Phone aria-hidden="true" />
-                {siteConfig.phone.display}
-              </a>
-              <a
-                href={siteConfig.telegram.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="type-body-sm inline-flex items-center justify-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <Send aria-hidden="true" className="size-4" />
-                Telegram {siteConfig.telegram.handle}
-              </a>
+              {contacts ? (
+                <>
+                <a
+                  href={contacts.phone.href}
+                  className={cn(buttonVariants({ variant: "default", size: "lg" }), "w-full")}
+                >
+                  <Phone aria-hidden="true" />
+                  {contacts.phone.display}
+                </a>
+                <a
+                  href={contacts.telegram.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="type-body-sm inline-flex items-center justify-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <Send aria-hidden="true" className="size-4" />
+                  Telegram {contacts.telegram.handle}
+                </a>
+                </>
+              ) : (
+                <p className="type-caption text-center text-muted-foreground">{DEMO_NOTICE}</p>
+              )}
             </div>
           </div>
         </div>
