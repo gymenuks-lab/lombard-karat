@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
+import { Reveal } from '@/components/reveal'
 
 const faqs = [
   {
@@ -29,12 +30,8 @@ export function Faq() {
     <section id="faq" className="bg-background py-16 sm:py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-            Часті питання
-          </p>
-          <h2 className="mt-3 font-serif text-3xl font-semibold text-balance sm:text-4xl">
-            Відповіді на головне
-          </h2>
+          <Reveal className="reveal-soft"><p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Часті питання</p></Reveal>
+          <h2 className="mt-3 font-serif text-3xl font-semibold text-balance sm:text-4xl"><Reveal variant="mask">Відповіді на головне</Reveal></h2>
         </div>
 
         <div className="mt-10 space-y-3">

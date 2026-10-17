@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowDown, ArrowRight } from 'lucide-react'
+import { Reveal } from '@/components/reveal'
 
 export function Hero() {
   return (
@@ -11,8 +12,8 @@ export function Hero() {
       <div className="relative mx-auto flex min-h-[88svh] max-w-7xl items-end px-5 pb-16 pt-28 sm:px-8 lg:items-center lg:px-12 lg:pb-20">
         <div className="max-w-3xl">
           <p className="hero-enter hero-enter-1 mb-6 text-[10px] uppercase tracking-[.32em] text-[#e7c56a] sm:text-xs">Ювелірний дім · Одеса</p>
-          <h1 className="hero-enter hero-enter-2 max-w-3xl font-serif text-[clamp(3.4rem,8vw,7.5rem)] leading-[.92] font-medium tracking-[-.045em] text-balance">
-            Прикраси,<br /><span className="text-[#e7c56a]">що залишаються</span><br />поза часом.
+          <h1 className="max-w-3xl font-serif text-[clamp(3.4rem,8vw,7.5rem)] leading-[.92] font-medium tracking-[-.045em] text-balance">
+            <Reveal variant="mask" delay={180}>Прикраси,</Reveal>{' '}<Reveal variant="mask" delay={280}><span className="text-[#e7c56a]">що залишаються</span></Reveal>{' '}<Reveal variant="mask" delay={380}>поза часом.</Reveal>
           </h1>
           <p className="hero-enter hero-enter-3 mt-8 max-w-md text-base leading-relaxed text-white/65 sm:text-lg">Золото та срібло, обрані з увагою до деталей. Вироби від виробника та перевірені прикраси для важливих моментів.</p>
           <div className="hero-enter hero-enter-4 mt-9 flex flex-wrap items-center gap-5">
