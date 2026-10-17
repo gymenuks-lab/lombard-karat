@@ -47,9 +47,9 @@
 .link-arrow:hover { gap: 1.25rem; color: var(--primary); }
 @media (max-width: 640px) {
   .hero-stage h1 { text-align: left; }
-  .hero-stage .reveal-mask { display: inline; block-size: auto; overflow: visible; }
-  .hero-stage .reveal-mask > .reveal-line { display: inline; transform: none; opacity: 0; transition: opacity .6s ease; }
-  .hero-stage .reveal-mask > .reveal-line.is-visible { opacity: 1; }
+  .hero-stage .reveal-mask { display: block; block-size: 1lh; overflow: clip; vertical-align: bottom; }
+  .hero-stage .reveal-mask > .reveal-line { display: inline-block; transform: translate3d(0, -115%, 0); opacity: 0; transition: transform .9s cubic-bezier(.16, 1, .3, 1), opacity .7s ease; }
+  .hero-stage .reveal-mask > .reveal-line.is-visible { transform: translate3d(0, 0, 0); opacity: 1; }
   .hero-background { animation-duration: 1.8s; }
   .hero-light { animation-duration: 1.8s; }
 }
