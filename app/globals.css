@@ -21,7 +21,8 @@
 @keyframes scroll-nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1); transition-delay: var(--reveal-delay, 0ms); }
  .reveal.is-visible { opacity: 1; transform: translateY(0); }
- .reveal-mask-host { display: inline; }
+ .reveal-mask-host { display: inline; visibility: hidden; }
+ .reveal-mask-host.is-visible { visibility: visible; }
  .reveal-measure { display: inline; visibility: hidden; pointer-events: none; }
  .reveal-mask-host:has(.reveal-line) .reveal-measure { position: absolute; width: 0; height: 0; overflow: hidden; }
  .reveal-fallback { display: inline; }
@@ -44,6 +45,14 @@
 .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: .28em; color: var(--primary); }
 .link-arrow { transition: gap .35s cubic-bezier(.22,1,.36,1), color .3s ease; }
 .link-arrow:hover { gap: 1.25rem; color: var(--primary); }
+@media (max-width: 640px) {
+  .hero-stage h1 { text-align: left; }
+  .hero-stage .reveal-mask { display: inline; block-size: auto; overflow: visible; }
+  .hero-stage .reveal-mask > .reveal-line { display: inline; transform: none; opacity: 0; transition: opacity .6s ease; }
+  .hero-stage .reveal-mask > .reveal-line.is-visible { opacity: 1; }
+  .hero-background { animation-duration: 1.8s; }
+  .hero-light { animation-duration: 1.8s; }
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
   .hero-background { transform: none !important; }
