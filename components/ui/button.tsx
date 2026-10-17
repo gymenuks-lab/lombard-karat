@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
 
-const buttonVariants = cva(
+const buttonStyles = cva(
   "group/button inline-flex shrink-0 items-center justify-center rounded-sm border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-[background-color,border-color,color,transform] duration-250 ease-luxe select-none active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-1 aria-invalid:ring-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
@@ -39,6 +39,9 @@ const buttonVariants = cva(
     },
   },
 )
+
+/** cva не розв’язує конфлікти класів (border-transparent vs border-primary), тому пропускаємо результат через cn. */
+const buttonVariants = (props?: Parameters<typeof buttonStyles>[0]) => cn(buttonStyles(props))
 
 function Button({
   className,

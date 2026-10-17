@@ -1,69 +1,60 @@
-import { Phone, Send, MapPin, Clock } from 'lucide-react'
+import { Clock, MapPin, Phone, Send } from "lucide-react"
+
+import { siteConfig } from "@/lib/site-config"
+
+const MAP_SRC =
+  "https://www.google.com/maps?q=%D0%B2%D1%83%D0%BB.+%D0%9F%D0%B0%D0%BD%D1%82%D0%B5%D0%BB%D0%B5%D0%B9%D0%BC%D0%BE%D0%BD%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+122+%D0%9E%D0%B4%D0%B5%D1%81%D0%B0&output=embed"
+
+const rowClass = "flex items-start gap-5 border-b border-border py-6"
+const iconClass = "mt-1 size-5 shrink-0 text-gold-700"
 
 export function Contact() {
   return (
-    <section id="contacts" className="bg-secondary py-16 text-secondary-foreground sm:py-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-            Контакти
-          </p>
-          <h2 className="mt-3 font-serif text-3xl font-semibold text-balance sm:text-4xl">
-            Завітайте або напишіть нам
-          </h2>
-        </div>
+    <section id="contacts" className="section-y bg-muted">
+      <div className="container-site grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
+        <div>
+          <p className="type-eyebrow">Контакти</p>
+          <h2 className="type-h2 mt-4">Завітайте або напишіть нам</h2>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          <div className="flex flex-col gap-4">
-            <a
-              href="tel:+380938205448"
-              className="flex items-center gap-4 rounded-2xl border border-primary/15 bg-card p-5 text-card-foreground transition-colors hover:border-primary/50"
-            >
-              <span className="flex size-12 items-center justify-center rounded-xl bg-accent text-primary">
-                <Phone className="size-5" />
-              </span>
+          <div className="mt-10 border-t border-border">
+            <a href={siteConfig.phone.href} className={`${rowClass} group`}>
+              <Phone aria-hidden="true" strokeWidth={1.5} className={iconClass} />
               <span>
-                <span className="block text-sm text-muted-foreground">Телефон</span>
-                <span className="text-lg font-semibold">+380 93 820 54 48</span>
+                <span className="type-caption block text-muted-foreground">Телефон</span>
+                <span className="mt-1 block text-lg font-medium underline-offset-4 group-hover:underline">{siteConfig.phone.display}</span>
               </span>
             </a>
 
-            <a
-              href="https://t.me/k5karat"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 rounded-2xl border border-primary/15 bg-card p-5 text-card-foreground transition-colors hover:border-primary/50"
-            >
-              <Send className="size-6 text-primary" />
-              <span className="text-sm font-medium">Telegram</span>
+            <a href={siteConfig.telegram.href} target="_blank" rel="noopener noreferrer" className={`${rowClass} group`}>
+              <Send aria-hidden="true" strokeWidth={1.5} className={iconClass} />
+              <span>
+                <span className="type-caption block text-muted-foreground">Telegram</span>
+                <span className="mt-1 block text-lg font-medium underline-offset-4 group-hover:underline">{siteConfig.telegram.handle}</span>
+              </span>
             </a>
 
-            <div className="flex items-start gap-4 rounded-2xl border border-primary/15 bg-card p-5 text-card-foreground">
-              <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-accent text-primary">
-                <MapPin className="size-5" />
-              </span>
+            <div className={rowClass}>
+              <MapPin aria-hidden="true" strokeWidth={1.5} className={iconClass} />
               <span>
-                <span className="block text-sm text-muted-foreground">Адреса</span>
-                <span className="font-semibold">
-                  м. Одеса, вул. Пантелеймонівська, 122
-                </span>
-                <span className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
-                  <Clock className="size-4" />
-                  Щодня 08:00 — 19:00
+                <span className="type-caption block text-muted-foreground">Адреса</span>
+                <span className="mt-1 block text-lg font-medium">{siteConfig.address}</span>
+                <span className="type-body-sm mt-2 flex items-center gap-2 text-muted-foreground">
+                  <Clock aria-hidden="true" className="size-4" />
+                  {siteConfig.hours}
                 </span>
               </span>
             </div>
           </div>
+        </div>
 
-          <div className="overflow-hidden rounded-2xl border border-primary/15">
-            <iframe
-              title="Карта розташування 5 Карат"
-              src="https://www.google.com/maps?q=%D0%B2%D1%83%D0%BB.+%D0%9F%D0%B0%D0%BD%D1%82%D0%B5%D0%BB%D0%B5%D0%B9%D0%BC%D0%BE%D0%BD%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+122+%D0%9E%D0%B4%D0%B5%D1%81%D0%B0&output=embed"
-              className="h-full min-h-72 w-full"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
+        <div className="min-h-80 overflow-hidden bg-ivory-200 lg:min-h-full">
+          <iframe
+            title="Карта розташування 5 Карат"
+            src={MAP_SRC}
+            className="h-full min-h-80 w-full grayscale"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </div>
       </div>
     </section>
