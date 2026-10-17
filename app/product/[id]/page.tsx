@@ -27,6 +27,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   return {
     title: `${product.title} — 5 Карат`,
     description: product.description?.slice(0, 160) || `${product.title}. ${formatPrice(product.price, product.currency)}`,
+    alternates: { canonical: `/product/${product.id}` },
     openGraph: {
       title: `${product.title} — 5 Карат`,
       images: product.images.length ? [product.images[0]] : undefined,

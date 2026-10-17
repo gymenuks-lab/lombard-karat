@@ -10,12 +10,6 @@ import { CatalogPagination } from "@/components/catalog-pagination"
 import { getProducts, getFilterOptions } from "@/lib/queries"
 import { CATEGORY_LABELS, type ProductCategory } from "@/lib/types"
 
-export const metadata: Metadata = {
-  title: "Каталог — 5 Карат | Золото та срібло: вироби від виробника та вживані",
-  description:
-    "Каталог ювелірних виробів 5 Карат: нові вироби від виробника та перевірені вживані прикраси. Золото, срібло, каблучки, ланцюжки, сережки. Замовлення онлайн з доставкою по Україні.",
-}
-
 export const dynamic = "force-dynamic"
 
 interface CatalogPageProps {
@@ -31,6 +25,20 @@ interface CatalogPageProps {
     sort?: string
     page?: string
   }>
+}
+
+const BASE_METADATA: Metadata = {
+  title: "Каталог — 5 Карат | Золото та срібло: вироби від виробника та вживані",
+  description:
+    "Каталог ювелірних виробів 5 Карат: нові вироби від виробника та перевірені вживані прикраси. Золото, срібло, каблучки, ланцюжки, сережки. Замовлення онлайн з доставкою по Україні.",
+  alternates: { canonical: "/catalog" },
+}
+
+export async function generateMetadata({ searchParams }: CatalogPageProps): Promise<Metadata> {
+  const sp = await searchParams
+  const filtered = Object.values(sp).some(Boolean)
+  // Відфільтровані, відсортовані та посторінкові варіанти не індексуємо, щоб не плодити дублі.
+  return filtered ? { ...BASE_METADATA, robots: { index: false, follow: true } } : BASE_METADATA
 }
 
 const SORTS = ["newest", "price_asc", "price_desc"] as const
