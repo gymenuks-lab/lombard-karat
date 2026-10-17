@@ -1,14 +1,16 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import Link from "next/link"
-import { ChevronRight, ShieldCheck, Truck, BadgeCheck } from "lucide-react"
+import { ShieldCheck, Truck, BadgeCheck } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 import { ProductGallery } from "@/components/product-gallery"
 import { ProductGrid } from "@/components/product-grid"
 import { OrderButton } from "@/components/order-button"
 import { getProductById, getRelatedProducts } from "@/lib/queries"
-import { CATEGORY_LABELS, formatPrice, STATUS_LABELS } from "@/lib/types"
+import { siteConfig } from "@/lib/site-config"
+import { cn } from "@/lib/utils"
+import { CATEGORY_LABELS, formatPrice, STATUS_LABELS, type Product } from "@/lib/types"
 
 export const dynamic = "force-dynamic"
 
@@ -30,11 +32,15 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   }
 }
 
-const attributes: { key: "metal" | "sample" | "weight" | "item_type"; label: string; suffix?: string }[] = [
-  { key: "item_type", label: "Тип виробу" },
-  { key: "metal", label: "Метал" },
-  { key: "sample", label: "Проба" },
-  { key: "weight", label: "Вага", suffix: " г" },
+const CONDITION_LABELS: Record<Product["category"], string> = {
+  manufacturer: "Нове",
+  lombard: "Вживане",
+}
+
+const trustPoints = [
+  { icon: BadgeCheck, label: "Перевірена якість" },
+  { icon: ShieldCheck, label: "Гарантія проби" },
+  { icon: Truck, label: "Доставка по Україні" },
 ]
 
 export default async function ProductPage({ params }: ProductPageProps) {
@@ -45,100 +51,101 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const related = await getRelatedProducts(product)
   const soldOut = product.status === "sold"
 
+  // Показуємо лише ті характеристики, які реально є в даних.
+  const specs: { label: string; value: string }[] = [
+    product.item_type && { label: "Тип виробу", value: product.item_type },
+    product.metal && { label: "Метал", value: product.metal },
+    product.sample && { label: "Проба", value: product.sample },
+    product.weight ? { label: "Вага", value: `${product.weight} г` } : null,
+    { label: "Стан", value: CONDITION_LABELS[product.category] },
+    { label: "Наявність", value: STATUS_LABELS[product.status] },
+  ].filter((spec): spec is { label: string; value: string } => Boolean(spec))
+
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-        {/* Breadcrumbs */}
-        <nav className="mb-6 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-foreground">
-            Головна
-          </Link>
-          <ChevronRight className="size-3.5" />
-          <Link href="/catalog" className="hover:text-foreground">
-            Каталог
-          </Link>
-          <ChevronRight className="size-3.5" />
-          <Link href={`/catalog?category=${product.category}`} className="hover:text-foreground">
-            {CATEGORY_LABELS[product.category]}
-          </Link>
-        </nav>
+      <main className="container-site pt-8 pb-20 lg:pb-28">
+        <Breadcrumbs
+          items={[
+            { label: "Головна", href: "/" },
+            { label: "Каталог", href: "/catalog" },
+            { label: CATEGORY_LABELS[product.category], href: `/catalog?category=${product.category}` },
+            { label: product.title },
+          ]}
+        />
 
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+        <div className="mt-8 grid gap-x-16 gap-y-10 lg:mt-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
           <ProductGallery images={product.images} title={product.title} />
 
-          <div className="flex flex-col">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground">
-                {CATEGORY_LABELS[product.category]}
-              </span>
-              {product.status !== "available" && (
-                <span className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
-                  {STATUS_LABELS[product.status]}
-                </span>
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <p className="type-eyebrow">{CATEGORY_LABELS[product.category]}</p>
+            <h1 className="type-h2 mt-3">{product.title}</h1>
+            <p
+              className={cn(
+                "mt-5",
+                product.price == null ? "type-body text-muted-foreground" : "type-price-lg",
+                soldOut && "text-muted-foreground",
               )}
-            </div>
-
-            <h1 className="mt-4 font-serif text-2xl font-semibold text-balance sm:text-3xl">{product.title}</h1>
-
-            <p className="mt-4 font-serif text-3xl font-semibold text-foreground">
+            >
               {formatPrice(product.price, product.currency)}
             </p>
 
-            {/* Attributes */}
-            <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 rounded-xl border border-border bg-card p-5">
-              {attributes.map((attr) => {
-                const value = product[attr.key]
-                if (!value) return null
-                return (
-                  <div key={attr.key} className="flex flex-col">
-                    <dt className="text-xs uppercase tracking-wide text-muted-foreground">{attr.label}</dt>
-                    <dd className="text-sm font-medium">
-                      {value}
-                      {attr.suffix ?? ""}
-                    </dd>
-                  </div>
-                )
-              })}
+            <dl className="mt-8 border-t border-border">
+              {specs.map((spec) => (
+                <div key={spec.label} className="flex items-baseline justify-between gap-6 border-b border-border py-3.5">
+                  <dt className="type-body-sm text-muted-foreground">{spec.label}</dt>
+                  <dd className="type-body-sm text-right font-medium">{spec.value}</dd>
+                </div>
+              ))}
             </dl>
 
-            <div className="mt-6">
+            <div className="mt-8 hidden lg:block">
               <OrderButton product={product} size="lg" disabled={soldOut} fullWidth />
-              <p className="mt-2 text-center text-xs text-muted-foreground">
-                Залиште заявку — менеджер зв&apos;яжеться з вами для підтвердження та деталей оплати.
-              </p>
             </div>
+            <p className="type-caption mt-3 text-muted-foreground lg:text-center">
+              Залиште заявку — менеджер зв&apos;яжеться з вами для підтвердження та деталей оплати.
+            </p>
 
-            {/* Trust points */}
-            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <BadgeCheck className="size-4 text-primary" />
-                Перевірена якість
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <ShieldCheck className="size-4 text-primary" />
-                Гарантія проби
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Truck className="size-4 text-primary" />
-                Доставка по Україні
-              </div>
-            </div>
+            <p className="type-body-sm mt-6 text-muted-foreground">
+              Є питання щодо виробу?{" "}
+              <a href={siteConfig.phone.href} className="link-inline text-foreground">
+                {siteConfig.phone.display}
+              </a>{" "}
+              або{" "}
+              <a href={siteConfig.telegram.href} target="_blank" rel="noopener noreferrer" className="link-inline text-foreground">
+                Telegram
+              </a>
+            </p>
+
+            <ul className="mt-8 flex flex-col gap-3 border-t border-border pt-8">
+              {trustPoints.map(({ icon: Icon, label }) => (
+                <li key={label} className="type-body-sm flex items-center gap-3 text-muted-foreground">
+                  <Icon aria-hidden="true" strokeWidth={1.5} className="size-5 shrink-0 text-gold-700" />
+                  {label}
+                </li>
+              ))}
+            </ul>
 
             {product.description && (
-              <div className="mt-8">
-                <h2 className="font-serif text-lg font-semibold">Опис</h2>
-                <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
-                  {product.description}
-                </p>
+              <div className="mt-8 border-t border-border pt-8">
+                <h2 className="type-eyebrow">Опис</h2>
+                <p className="type-body-sm mt-4 whitespace-pre-line text-muted-foreground">{product.description}</p>
               </div>
             )}
           </div>
         </div>
 
+        {/* Mobile: панель замовлення прилипає до низу екрана й зупиняється в кінці блоку товару. */}
+        <div className="sticky bottom-0 z-30 -mx-(--gutter) mt-10 flex items-center justify-between gap-4 border-t border-border bg-background px-(--gutter) py-3 lg:hidden">
+          <p className={cn(product.price == null ? "type-body-sm text-muted-foreground" : "type-price-lg", soldOut && "text-muted-foreground")}>
+            {formatPrice(product.price, product.currency)}
+          </p>
+          <OrderButton product={product} disabled={soldOut} className="min-w-40" />
+        </div>
+
         {related.length > 0 && (
-          <section className="mt-16">
-            <h2 className="mb-6 font-serif text-2xl font-semibold">Схожі товари</h2>
+          <section className="mt-20 border-t border-border pt-16 lg:mt-28">
+            <h2 className="type-h2 mb-10">Схожі товари</h2>
             <ProductGrid products={related} />
           </section>
         )}
