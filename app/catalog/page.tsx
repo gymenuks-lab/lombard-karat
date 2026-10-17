@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { ProductCard } from "@/components/product-card"
+import { ProductGrid } from "@/components/product-grid"
 import { CatalogFilters } from "@/components/catalog-filters"
 import { CatalogPagination } from "@/components/catalog-pagination"
 import { getProducts, getFilterOptions } from "@/lib/queries"
@@ -74,11 +74,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          <ProductGrid products={products} />
         )}
 
         <div className="mt-12">

@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import { Gem } from "lucide-react"
+import { ProductGrid } from "@/components/product-grid"
+import type { Product } from "@/lib/types"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -108,33 +110,33 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
   )
 }
 
-function CardExample({ soldOut = false }: { soldOut?: boolean }) {
-  return (
-    <article className="group">
-      <a href="#product-card" className="block">
-        <div className="relative aspect-[4/5] overflow-hidden bg-ivory-200">
-          <div
-            className={`absolute inset-0 flex items-center justify-center text-ink-500 transition-transform duration-700 ease-luxe group-hover:scale-[1.03] ${
-              soldOut ? "opacity-50" : ""
-            }`}
-          >
-            <Gem className="size-10" strokeWidth={1} aria-hidden />
-          </div>
-          {soldOut && (
-            <span className="type-caption absolute top-3 left-3 bg-background px-2.5 py-1 text-foreground">
-              Продано
-            </span>
-          )}
-        </div>
-        <h3 className="mt-4 line-clamp-2 text-[0.9375rem] leading-snug font-medium underline-offset-4 group-hover:underline">
-          Назва виробу (приклад макета)
-        </h3>
-        <p className="type-caption mt-1 text-muted-foreground">Метал · Проба · Вага</p>
-        <p className="type-price mt-2">00 000 ₴</p>
-      </a>
-    </article>
-  )
+const SAMPLE_BASE: Product = {
+  id: "design-system-example",
+  title: "Назва виробу (умовний приклад)",
+  description: "",
+  price: 12500,
+  currency: "UAH",
+  category: "manufacturer",
+  metal: "Метал",
+  sample: "000",
+  weight: 0,
+  item_type: null,
+  images: [],
+  telegram_message_id: null,
+  telegram_post_url: null,
+  status: "available",
+  is_published: true,
+  created_at: "",
+  updated_at: "",
 }
+
+// Умовні дані лише для перевірки станів компонента. Це не реальні товари.
+const SAMPLE_PRODUCTS: Product[] = [
+  { ...SAMPLE_BASE, id: "design-system-example-1", weight: 2.5 },
+  { ...SAMPLE_BASE, id: "design-system-example-2", category: "lombard", metal: null, sample: null, weight: null },
+  { ...SAMPLE_BASE, id: "design-system-example-3", status: "reserved" },
+  { ...SAMPLE_BASE, id: "design-system-example-4", status: "sold", price: null },
+]
 
 export default function DesignSystemPage() {
   return (
@@ -560,18 +562,16 @@ export default function DesignSystemPage() {
 
       <Section
         id="product-card"
-        title="Картка товару — принципи"
-        note="Макет майбутньої картки (ЕТАП 3). Дані умовні: це не реальний товар. Фото 4:5, без рамки, тіні й кнопки; назва, характеристики, ціна; статус лише якщо товар не в наявності."
+        title="Картка товару"
+        note="Реальний компонент ProductCard у реальній сітці ProductGrid. Дані умовні — це не товари магазину. Стани: у наявності з характеристиками, без характеристик, зарезервовано, продано без ціни."
       >
-        <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 md:gap-x-6 lg:grid-cols-4 lg:gap-x-8">
-          <CardExample />
-          <CardExample />
-          <CardExample soldOut />
-        </div>
+        <ProductGrid products={SAMPLE_PRODUCTS} />
         <ul className="type-body-sm mt-10 max-w-2xl list-disc space-y-1.5 pl-5 text-muted-foreground">
           <li>Вся картка — одне посилання. Hover: фото 1.03 за 700 мс, підкреслення назви.</li>
           <li>Характеристики показуються лише ті, що є в даних (метал, проба, вага).</li>
-          <li>Статус «Продано» — коротка позначка на фото, зображення приглушене.</li>
+          <li>Друге фото (якщо є) плавно проявляється при hover; без фото — нейтральний плейсхолдер.</li>
+          <li>Статус «Продано» і «Зарезервовано» — коротка позначка на фото; для проданого зображення приглушене.</li>
+          <li>Замовлення оформлюється на сторінці товару, у картці немає кнопок і рамок.</li>
         </ul>
       </Section>
     </main>

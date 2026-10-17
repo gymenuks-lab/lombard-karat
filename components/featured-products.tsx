@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { getProducts } from "@/lib/queries"
-import { ProductCard } from "@/components/product-card"
+import { ProductGrid } from "@/components/product-grid"
 
 export async function FeaturedProducts() {
   const { products: items } = await getProducts({ pageSize: 6, sort: "newest" })
@@ -33,10 +33,8 @@ export async function FeaturedProducts() {
             </p>
           </div>
         ) : (
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
+          <div className="mt-12">
+            <ProductGrid products={items} />
           </div>
         )}
 

@@ -5,7 +5,7 @@ import { ChevronRight, ShieldCheck, Truck, BadgeCheck } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { ProductGallery } from "@/components/product-gallery"
-import { ProductCard } from "@/components/product-card"
+import { ProductGrid } from "@/components/product-grid"
 import { OrderButton } from "@/components/order-button"
 import { getProductById, getRelatedProducts } from "@/lib/queries"
 import { CATEGORY_LABELS, formatPrice, STATUS_LABELS } from "@/lib/types"
@@ -139,11 +139,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         {related.length > 0 && (
           <section className="mt-16">
             <h2 className="mb-6 font-serif text-2xl font-semibold">Схожі товари</h2>
-            <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
-              {related.map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </div>
+            <ProductGrid products={related} />
           </section>
         )}
       </main>

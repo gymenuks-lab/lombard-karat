@@ -1,49 +1,83 @@
 import Image from "next/image"
 import Link from "next/link"
-import { CATEGORY_LABELS, formatPrice, STATUS_LABELS, type Product } from "@/lib/types"
-import { OrderButton } from "@/components/order-button"
+import { Gem } from "lucide-react"
 
+import { cn } from "@/lib/utils"
+import { CATEGORY_LABELS, formatPrice, STATUS_LABELS, type Product } from "@/lib/types"
+
+const IMAGE_SIZES = "(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+
+/**
+ * Карточка товара: вся карточка — одна ссылка на страницу товара.
+ * Показывает только данные, которые реально есть у товара.
+ * Заказ оформляется на странице товара, а не в карточке.
+ */
 export function ProductCard({ product }: { product: Product }) {
-  const cover = product.images[0] || "/placeholder.svg?height=600&width=600"
-  const soldOut = product.status === "sold"
+  const [cover, hoverImage] = product.images
+  const unavailable = product.status === "sold"
+  const showStatus = product.status === "sold" || product.status === "reserved"
+
+  const specs = [
+    product.metal,
+    product.sample ? `Проба ${product.sample}` : null,
+    product.weight ? `${product.weight} г` : null,
+  ].filter(Boolean)
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:border-primary/50 hover:shadow-lg">
-      <Link href={`/product/${product.id}`} className="relative block aspect-square overflow-hidden bg-muted">
-        <Image
-          src={cover || "/placeholder.svg"}
-          alt={product.title}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <span className="absolute left-3 top-3 rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
-          {CATEGORY_LABELS[product.category]}
-        </span>
-        {product.status !== "available" && (
-          <span className="absolute right-3 top-3 rounded-full bg-background/90 px-3 py-1 text-xs font-medium text-foreground">
-            {STATUS_LABELS[product.status]}
-          </span>
-        )}
+    <article className="group">
+      <Link href={`/product/${product.id}`} className="block">
+        <div className="relative aspect-[4/5] overflow-hidden bg-ivory-200">
+          {cover ? (
+            <>
+              <Image
+                src={cover}
+                alt={product.title}
+                fill
+                sizes={IMAGE_SIZES}
+                className={cn(
+                  "object-cover transition-transform duration-700 ease-luxe group-hover:scale-[1.03]",
+                  unavailable && "opacity-60",
+                )}
+              />
+              {hoverImage && !unavailable && (
+                <Image
+                  src={hoverImage}
+                  alt=""
+                  aria-hidden="true"
+                  fill
+                  sizes={IMAGE_SIZES}
+                  className="object-cover opacity-0 transition-opacity duration-450 ease-luxe group-hover:opacity-100"
+                />
+              )}
+            </>
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center text-ink-500">
+              <Gem className="size-10" strokeWidth={1} aria-hidden="true" />
+            </div>
+          )}
+
+          {showStatus && (
+            <span className="type-caption absolute top-3 left-3 bg-background px-2.5 py-1 text-foreground">
+              {STATUS_LABELS[product.status]}
+            </span>
+          )}
+        </div>
+
+        <p className="type-caption mt-4 text-muted-foreground">{CATEGORY_LABELS[product.category]}</p>
+        <h3 className="mt-1 line-clamp-2 text-[0.9375rem] leading-snug font-medium underline-offset-4 group-hover:underline">
+          {product.title}
+        </h3>
+        {specs.length > 0 && <p className="type-caption mt-1 text-muted-foreground">{specs.join(" · ")}</p>}
+        <p
+          className={cn(
+            product.price == null ? "type-body-sm text-muted-foreground" : "type-price",
+            "mt-3",
+            unavailable && "text-muted-foreground",
+          )}
+        >
+          {formatPrice(product.price, product.currency)}
+        </p>
       </Link>
-
-      <div className="flex flex-1 flex-col p-4">
-        <Link href={`/product/${product.id}`}>
-          <h3 className="line-clamp-2 text-sm font-semibold leading-snug hover:text-primary">{product.title}</h3>
-        </Link>
-        <div className="mt-1 flex flex-wrap gap-x-3 gap-y-0.5 text-xs text-muted-foreground">
-          {product.metal && <span>{product.metal}</span>}
-          {product.sample && <span>Проба {product.sample}</span>}
-          {product.weight && <span>{product.weight} г</span>}
-        </div>
-
-        <div className="mt-auto flex items-center justify-between gap-2 pt-4">
-          <span className="font-serif text-lg font-semibold text-foreground">
-            {formatPrice(product.price, product.currency)}
-          </span>
-          <OrderButton product={product} size="sm" disabled={soldOut} />
-        </div>
-      </div>
     </article>
   )
 }
