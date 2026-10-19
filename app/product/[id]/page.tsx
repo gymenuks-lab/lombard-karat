@@ -10,6 +10,7 @@ import { ProductGallery } from "@/components/product-gallery"
 import { ProductGrid } from "@/components/product-grid"
 import { OrderButton } from "@/components/order-button"
 import { getProductById, getRelatedProducts } from "@/lib/queries"
+import { productTrustLabels } from "@/lib/copy"
 import { contacts, demoMode } from "@/lib/site-config"
 import { cn } from "@/lib/utils"
 import { CATEGORY_LABELS, formatPrice, STATUS_LABELS, type Product } from "@/lib/types"
@@ -40,11 +41,8 @@ const CONDITION_LABELS: Record<Product["category"], string> = {
   lombard: "Вживане",
 }
 
-const trustPoints = [
-  { icon: BadgeCheck, label: "Перевірена якість" },
-  { icon: ShieldCheck, label: "Гарантія проби" },
-  { icon: Truck, label: "Доставка по Україні" },
-]
+const trustIcons = [BadgeCheck, ShieldCheck, Truck]
+const trustPoints = productTrustLabels.map((label, index) => ({ icon: trustIcons[index], label }))
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params

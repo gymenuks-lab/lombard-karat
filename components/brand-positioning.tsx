@@ -1,23 +1,6 @@
 import Image from "next/image"
 
-const points = [
-  {
-    title: "Напряму від виробника",
-    text: "Працюємо без посередників — тому ціни нижчі за ринкові.",
-  },
-  {
-    title: "Гарантована якість",
-    text: "Кожен виріб проходить контроль перед продажем.",
-  },
-  {
-    title: "Сертифіковане золото та срібло",
-    text: "Усі вироби супроводжуються документами та пробою.",
-  },
-  {
-    title: "Прозоре ціноутворення",
-    text: "Вартість за грамом без прихованих націнок.",
-  },
-]
+import { brandCopy } from "@/lib/copy"
 
 export function BrandPositioning() {
   return (
@@ -35,15 +18,14 @@ export function BrandPositioning() {
           </div>
 
           <div>
-            <p className="type-eyebrow text-gold!">Чому нам довіряють</p>
-            <h2 className="type-h2 mt-4 max-w-xl">Якість і прозорість на кожному етапі</h2>
+            <p className="type-eyebrow text-gold!">{brandCopy.eyebrow}</p>
+            <h2 className="type-h2 mt-4 max-w-xl">{brandCopy.title}</h2>
             <p className="type-body mt-6 max-w-xl text-muted-foreground">
-              «5 Карат» — прямий постачальник ювелірних виробів із золота та срібла з багаторічною репутацією. Ми
-              гарантуємо якість та справжність кожного виробу в нашому магазині.
+              {brandCopy.text}
             </p>
 
             <dl className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2">
-              {points.map((point) => (
+              {brandCopy.points.map((point) => (
                 <div key={point.title} className="border-t border-border pt-5">
                   <dt className="font-heading text-lg">{point.title}</dt>
                   <dd className="type-body-sm mt-2 text-muted-foreground">{point.text}</dd>

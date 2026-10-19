@@ -7,6 +7,8 @@ import { Breadcrumbs } from "@/components/breadcrumbs"
 import { buttonVariants } from "@/components/ui/button"
 import { CatalogSidebar, CatalogToolbar, CategoryTabs } from "@/components/catalog-filters"
 import { CatalogPagination } from "@/components/catalog-pagination"
+import { siteCopy } from "@/lib/copy"
+import { demoMode } from "@/lib/site-config"
 import { getProducts, getFilterOptions } from "@/lib/queries"
 import { CATEGORY_LABELS, type ProductCategory } from "@/lib/types"
 
@@ -28,9 +30,8 @@ interface CatalogPageProps {
 }
 
 const BASE_METADATA: Metadata = {
-  title: "Каталог — 5 Карат | Золото та срібло: вироби від виробника та вживані",
-  description:
-    "Каталог ювелірних виробів 5 Карат: нові вироби від виробника та перевірені вживані прикраси. Золото, срібло, каблучки, ланцюжки, сережки. Замовлення онлайн з доставкою по Україні.",
+  title: demoMode ? "Каталог — 5 Карат" : "Каталог — 5 Карат | Золото та срібло: вироби від виробника та вживані",
+  description: siteCopy.catalogDescription,
   alternates: { canonical: "/catalog" },
 }
 
@@ -89,7 +90,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         <header className="mt-8 max-w-2xl lg:mt-12">
           <h1 className="type-h1">{heading}</h1>
           <p className="type-body mt-4 text-pretty text-muted-foreground">
-            Оберіть виріб і залиште заявку — менеджер зв&apos;яжеться з вами.
+            {siteCopy.catalogLead}
           </p>
         </header>
 

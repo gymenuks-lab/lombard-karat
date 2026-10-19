@@ -2,6 +2,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
+import { siteCopy } from "@/lib/copy"
+
 /** Значення type/metal збігаються з тим, що записує імпорт із Telegram (lib/telegram/parser.ts). */
 const filterHref = (key: "type" | "metal", value: string) => `/catalog?${key}=${encodeURIComponent(value)}`
 
@@ -27,7 +29,7 @@ export function Categories() {
           <p className="type-eyebrow">Категорії</p>
           <h2 className="type-h2 mt-4">Оберіть свої прикраси</h2>
           <p className="type-body mt-5 text-muted-foreground">
-            Золото та срібло на будь-який смак — нові вироби від виробника та перевірені вживані прикраси.
+            {siteCopy.categoriesText}
           </p>
         </div>
 

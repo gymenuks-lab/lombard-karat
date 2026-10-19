@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react"
 
 import { ProductGrid } from "@/components/product-grid"
 import { getProducts } from "@/lib/queries"
+import { siteCopy } from "@/lib/copy"
 import { contacts } from "@/lib/site-config"
 
 export async function FeaturedProducts() {
@@ -16,7 +17,7 @@ export async function FeaturedProducts() {
             <p className="type-eyebrow">Каталог</p>
             <h2 className="type-h2 mt-4">Нові надходження</h2>
             <p className="type-body mt-5 text-muted-foreground">
-              Нові прикраси від виробника та перевірені вживані вироби.
+              {siteCopy.featuredText}
             </p>
           </div>
           <Link href="/catalog" className="link-inline type-body-sm inline-flex items-center gap-2 self-start font-medium sm:self-auto">

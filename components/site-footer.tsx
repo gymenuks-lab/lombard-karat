@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
+import { siteCopy } from "@/lib/copy"
 import { contacts, DEMO_NOTICE, demoMode, siteConfig } from "@/lib/site-config"
 import { CATEGORY_LABELS } from "@/lib/types"
 
@@ -33,8 +34,7 @@ export function SiteFooter() {
                 </span>
               </Link>
               <p className="type-body-sm mt-6 max-w-sm text-pretty text-muted-foreground">
-                Ювелірний магазин: золото та срібло від виробника та перевірені вживані вироби. Доставка по всій
-                Україні, гарантія та сертифікати на кожен виріб.
+                {siteCopy.footerText}
               </p>
             </div>
 

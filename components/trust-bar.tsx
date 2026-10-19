@@ -1,8 +1,4 @@
-const items = [
-  { title: "Доставка по Україні", text: "Нова Пошта та кур’єр" },
-  { title: "Сертифіковані вироби", text: "Проба та документи" },
-  { title: "Підтримка щодня", text: "Консультація 08:00–19:00" },
-]
+import { trustBarItems as items } from "@/lib/copy"
 
 export function TrustBar() {
   return (
