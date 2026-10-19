@@ -369,6 +369,22 @@
 }
 
 /* Navigation link: a gold hairline grows from the left on hover / current. */
+/* Hero: очень медленный зум фото (22 с), отключается при prefers-reduced-motion. */
+@keyframes hero-drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@utility animate-hero-drift {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: hero-drift 22s var(--ease-luxe) forwards;
+  }
+}
+
 @utility link-nav {
   position: relative;
   transition-property: color;

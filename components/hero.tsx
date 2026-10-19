@@ -15,7 +15,12 @@ export function Hero() {
             fill
             priority
             sizes="(min-width: 1024px) 62vw, 100vw"
-            className="object-cover object-[70%_50%] opacity-60 lg:opacity-100 lg:[mask-image:linear-gradient(to_right,transparent,black_35%)]"
+            className="animate-hero-drift object-cover object-[70%_50%] opacity-60 lg:opacity-100 lg:[mask-image:linear-gradient(to_right,transparent,black_35%)]"
+          />
+          {/* Мягкая виньетка: уводит края в глубокий чёрный и держит читаемость текста */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,transparent_35%,rgb(10_9_8/0.55)_100%)]"
           />
         </div>
 
