@@ -5,6 +5,10 @@ export interface ProductFilters {
   category?: ProductCategory
   metal?: string
   itemType?: string
+  sample?: string
+  priceMin?: number
+  priceMax?: number
+  availableOnly?: boolean
   search?: string
   sort?: "newest" | "price_asc" | "price_desc"
   page?: number
@@ -34,6 +38,10 @@ export async function getProducts(filters: ProductFilters = {}): Promise<Product
   if (filters.category) query = query.eq("category", filters.category)
   if (filters.metal) query = query.eq("metal", filters.metal)
   if (filters.itemType) query = query.eq("item_type", filters.itemType)
+  if (filters.sample) query = query.eq("sample", filters.sample)
+  if (filters.priceMin != null) query = query.gte("price", filters.priceMin)
+  if (filters.priceMax != null) query = query.lte("price", filters.priceMax)
+  if (filters.availableOnly) query = query.eq("status", "available")
   if (filters.search) query = query.ilike("title", `%${filters.search}%`)
 
   switch (filters.sort) {
@@ -88,23 +96,26 @@ export async function getRelatedProducts(product: Product, limit = 4): Promise<P
   return (data ?? []) as Product[]
 }
 
-export async function getFilterOptions(): Promise<{ metals: string[]; itemTypes: string[] }> {
+export async function getFilterOptions(): Promise<{ metals: string[]; itemTypes: string[]; samples: string[] }> {
   const supabase = await createClient()
   const { data } = await supabase
     .from("products")
-    .select("metal, item_type")
+    .select("metal, item_type, sample")
     .eq("is_published", true)
     .neq("status", "hidden")
 
   const metals = new Set<string>()
   const itemTypes = new Set<string>()
+  const samples = new Set<string>()
   for (const row of data ?? []) {
     if (row.metal) metals.add(row.metal)
     if (row.item_type) itemTypes.add(row.item_type)
+    if (row.sample) samples.add(row.sample)
   }
   return {
     metals: Array.from(metals).sort(),
     itemTypes: Array.from(itemTypes).sort(),
+    samples: Array.from(samples).sort((a, b) => Number(a) - Number(b) || a.localeCompare(b)),
   }
 }
 

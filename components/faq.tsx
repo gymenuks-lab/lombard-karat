@@ -1,68 +1,53 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { useState } from "react"
+import { Plus } from "lucide-react"
 
-const faqs = [
-  {
-    q: 'Як зробити замовлення?',
-    a: 'Оберіть виріб у каталозі та залиште заявку — менеджер зв’яжеться з вами для підтвердження деталей та способу доставки.',
-  },
-  {
-    q: 'Як здійснюється доставка?',
-    a: 'Доставляємо по всій Україні Новою Поштою або кур’єром. Термін доставки зазвичай 1–3 робочі дні після підтвердження замовлення.',
-  },
-  {
-    q: 'Які способи оплати доступні?',
-    a: 'Можна оплатити банківським переказом або готівкою чи карткою при отриманні (накладений платіж).',
-  },
-  {
-    q: 'Чи справжні ювелірні вироби в магазині?',
-    a: 'Так. Усі вироби сертифіковані, мають пробу та супровідні документи. Ми гарантуємо якість кожної прикраси.',
-  },
-]
+import { faqItems as faqs } from "@/lib/copy"
+import { cn } from "@/lib/utils"
 
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0)
 
   return (
-    <section id="faq" className="bg-background py-16 sm:py-20">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6">
-        <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-            Часті питання
-          </p>
-          <h2 className="mt-3 font-serif text-3xl font-semibold text-balance sm:text-4xl">
-            Відповіді на головне
-          </h2>
+    <section id="faq" className="section-y bg-background">
+      <div className="container-site grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
+        <div>
+          <p className="type-eyebrow">Часті питання</p>
+          <h2 className="type-h2 mt-4">Відповіді на головне</h2>
         </div>
 
-        <div className="mt-10 space-y-3">
-          {faqs.map((item, i) => {
-            const isOpen = open === i
+        <div className="border-t border-border">
+          {faqs.map((item, index) => {
+            const isOpen = open === index
             return (
-              <div
-                key={item.q}
-                className="overflow-hidden rounded-xl border border-border bg-card"
-              >
-                <button
-                  type="button"
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
-                  aria-expanded={isOpen}
+              <div key={item.q} className="border-b border-border">
+                <h3>
+                  <button
+                    type="button"
+                    onClick={() => setOpen(isOpen ? null : index)}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-panel-${index}`}
+                    id={`faq-trigger-${index}`}
+                    className="flex w-full items-center justify-between gap-6 py-6 text-left text-base font-medium"
+                  >
+                    {item.q}
+                    <Plus
+                      aria-hidden="true"
+                      className={cn("size-5 shrink-0 text-muted-foreground transition-transform duration-250 ease-luxe", isOpen && "rotate-45")}
+                    />
+                  </button>
+                </h3>
+                <div
+                  id={`faq-panel-${index}`}
+                  role="region"
+                  aria-labelledby={`faq-trigger-${index}`}
+                  className={cn("grid transition-[grid-template-rows] duration-250 ease-luxe", isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}
                 >
-                  <span className="text-base font-medium">{item.q}</span>
-                  <ChevronDown
-                    className={`size-5 shrink-0 text-primary transition-transform ${
-                      isOpen ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
-                {isOpen && (
-                  <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">
-                    {item.a}
-                  </p>
-                )}
+                  <div className="overflow-hidden">
+                    <p className="type-body-sm max-w-xl pb-6 text-muted-foreground">{item.a}</p>
+                  </div>
+                </div>
               </div>
             )
           })}

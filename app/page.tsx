@@ -1,7 +1,7 @@
 import { SiteHeader } from '@/components/site-header'
 import { Hero } from '@/components/hero'
 import { TrustBar } from '@/components/trust-bar'
-import { Services } from '@/components/services'
+import { Categories } from '@/components/categories'
 import { FeaturedProducts } from '@/components/featured-products'
 import { BrandPositioning } from '@/components/brand-positioning'
 import { Faq } from '@/components/faq'
@@ -15,7 +15,7 @@ export default function Page() {
       <main>
         <Hero />
         <TrustBar />
-        <Services />
+        <Categories />
         <FeaturedProducts />
         <BrandPositioning />
         <Faq />

@@ -1,61 +1,38 @@
-import { Factory, ShieldCheck, Award, Tags } from 'lucide-react'
+import Image from "next/image"
 
-const points = [
-  {
-    icon: Factory,
-    title: 'Напряму від виробника',
-    text: 'Працюємо без посередників — тому ціни нижчі за ринкові.',
-  },
-  {
-    icon: Award,
-    title: 'Гарантована якість',
-    text: 'Кожен виріб проходить контроль перед продажем.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Сертифіковане золото та срібло',
-    text: 'Усі вироби супроводжуються документами та пробою.',
-  },
-  {
-    icon: Tags,
-    title: 'Прозоре ціноутворення',
-    text: 'Вартість за грамом без прихованих націнок.',
-  },
-]
+import { brandCopy } from "@/lib/copy"
 
 export function BrandPositioning() {
   return (
-    <section className="bg-secondary py-16 text-secondary-foreground sm:py-20">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-            Чому нам довіряють
-          </p>
-          <h2 className="mt-3 font-serif text-3xl font-semibold text-balance sm:text-4xl">
-            Якість і прозорість на кожному етапі
-          </h2>
-          <p className="mt-4 max-w-md text-secondary-foreground/70 text-pretty">
-            «5 Карат» — прямий постачальник ювелірних виробів із золота та срібла
-            з багаторічною репутацією. Ми гарантуємо якість та справжність кожного
-            виробу в нашому магазині.
-          </p>
-        </div>
+    <section className="surface-ink">
+      <div className="section-y bg-ink-950">
+        <div className="container-site grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center lg:gap-20">
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden bg-ink-900 lg:mx-0 lg:max-w-none">
+            <Image
+              src="/images/web/editorial-ring.webp"
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 40vw, 90vw"
+              className="object-cover"
+            />
+          </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {points.map((p) => (
-            <div
-              key={p.title}
-              className="rounded-2xl border border-primary/15 bg-card p-5 text-card-foreground"
-            >
-              <span className="flex size-11 items-center justify-center rounded-xl bg-accent text-primary">
-                <p.icon className="size-5" />
-              </span>
-              <h3 className="mt-4 text-base font-semibold">{p.title}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                {p.text}
-              </p>
-            </div>
-          ))}
+          <div>
+            <p className="type-eyebrow text-gold!">{brandCopy.eyebrow}</p>
+            <h2 className="type-h2 mt-4 max-w-xl">{brandCopy.title}</h2>
+            <p className="type-body mt-6 max-w-xl text-muted-foreground">
+              {brandCopy.text}
+            </p>
+
+            <dl className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+              {brandCopy.points.map((point) => (
+                <div key={point.title} className="border-t border-border pt-5">
+                  <dt className="font-heading text-lg">{point.title}</dt>
+                  <dd className="type-body-sm mt-2 text-muted-foreground">{point.text}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
       </div>
     </section>

@@ -1,0 +1,13 @@
+-- ============================================================================
+-- DEMO CATALOG: публікація / приховування демо-товарів
+-- Запускати лише коли DEMO MODE вже увімкнено на публічному деплої
+-- (інакше відвідувачі зможуть оформити справжню заявку на демо-товар).
+-- ============================================================================
+
+-- Опублікувати
+update public.products set is_published = true
+where telegram_message_id < 0
+returning id, title, status, is_published;  -- очікуємо рівно 6 рядків
+
+-- Приховати знову (без видалення)
+-- update public.products set is_published = false where telegram_message_id < 0 returning id, title, is_published;

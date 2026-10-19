@@ -369,6 +369,85 @@
 }
 
 /* Navigation link: a gold hairline grows from the left on hover / current. */
+/*
+ * Hero: деликатная анимация существующего фото (интенсивность ~2/10).
+ * Анимируются только transform и opacity. При prefers-reduced-motion всё статично.
+ * Базовый scale (1.05+) больше амплитуды сдвига, поэтому края фото не показываются.
+ */
+@keyframes hero-drift {
+  0%,
+  100% {
+    transform: scale(var(--hero-s0)) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(var(--hero-s1)) translate3d(var(--hero-dx), var(--hero-dy), 0);
+  }
+}
+
+@keyframes hero-sweep {
+  0%,
+  8% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(-18deg);
+  }
+  28% {
+    opacity: var(--hero-sweep-peak);
+  }
+  48%,
+  100% {
+    opacity: 0;
+    transform: translate3d(160%, 0, 0) rotate(-18deg);
+  }
+}
+
+@utility hero-parallax {
+  transform: translate3d(var(--hero-px, 0px), var(--hero-py, 0px), 0);
+}
+
+@utility hero-drift {
+  /* mobile: слабее, без сдвига, чтобы украшения не кадрировались иначе */
+  --hero-s0: 1.03;
+  --hero-s1: 1.055;
+  --hero-dx: 0%;
+  --hero-dy: 0%;
+
+  @media (min-width: 64rem) {
+    --hero-s0: 1.05;
+    --hero-s1: 1.095;
+    --hero-dx: -1.5%;
+    --hero-dy: -0.8%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: hero-drift 22s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    will-change: transform;
+  }
+}
+
+/* Блик не заходит на левую часть, где текст */
+@utility hero-sweep-mask {
+  mask-image: linear-gradient(to right, transparent 30%, black 62%);
+}
+
+@utility hero-sweep {
+  --hero-sweep-peak: 0.085;
+
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 55%;
+  height: 120%;
+  border-radius: 9999px;
+  background: radial-gradient(closest-side, rgb(244 226 190), transparent);
+  filter: blur(48px);
+  opacity: 0;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: hero-sweep 16s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    will-change: transform, opacity;
+  }
+}
+
 @utility link-nav {
   position: relative;
   transition-property: color;
